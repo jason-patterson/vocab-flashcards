@@ -37,23 +37,25 @@ function random(seed) {
   };
 }
 
-// Example sentences live in examples.txt as "Word|Sentence" lines.
+// Part of speech and example sentence live in examples.txt as
+// "Word|part of speech|Sentence" lines.
 const examples = {};
 for (const line of fs.readFileSync(path.join(dir, "examples.txt"), "utf8").split(/\r?\n/)) {
-  const bar = line.indexOf("|");
-  if (line.startsWith("#") || bar < 0) continue;
-  examples[line.slice(0, bar).trim().toLowerCase()] = line.slice(bar + 1).trim();
+  if (line.startsWith("#") || !line.includes("|")) continue;
+  const [word, pos, ...rest] = line.split("|").map((c) => c.trim());
+  examples[word.toLowerCase()] = { pos, sentence: rest.join("|") };
 }
 
 sets.sort((a, b) => a.day - b.day);
 const all = sets.flatMap((s) => s.words);
 const missing = [];
 for (const w of all) {
+  // Each word becomes [word, definition, sentence, part of speech]
   const ex = examples[w[0].toLowerCase()];
-  if (ex) w.push(ex);
+  if (ex) w.push(ex.sentence, ex.pos);
   else missing.push(w[0]);
 }
-if (missing.length) console.log(`No example sentence for: ${missing.join(", ")}`);
+if (missing.length) console.log(`Not in examples.txt: ${missing.join(", ")}`);
 const rand = random(SEED);
 for (let i = all.length - 1; i > 0; i--) {
   const j = Math.floor(rand() * (i + 1));
