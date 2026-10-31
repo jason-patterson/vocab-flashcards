@@ -958,3 +958,46 @@ Bereft|adjective|After the fire, the family was bereft of all their belongings.
 Blasé|adjective|After ten trips to the zoo, the kids were blasé about the lions.
 Bombard|verb|Fans bombarded the singer with questions.
 Brash|adjective|The brash young player boasted that he would win easily.
+
+Amicable|adjective|The two friends reached an amicable agreement about sharing the bike.
+Anguish|noun|She cried out in anguish when she twisted her ankle.
+Banter|noun|The teammates traded friendly banter on the bus ride home.
+Cantankerous|adjective|The cantankerous old cat hissed at anyone who came near.
+Chivalrous|adjective|In a chivalrous gesture, he held the door for everyone behind him.
+Conjecture|noun|Without the facts, his explanation was pure conjecture.
+Cordial|adjective|The neighbors gave us a cordial welcome to the street.
+Debunk|verb|The science teacher debunked the myth that goldfish have three-second memories.
+Decipher|verb|It took me ten minutes to decipher my doctor's handwriting.
+Desolate|adjective|The desolate island had no trees, people, or fresh water.
+Dwindle|verb|Our snack supply began to dwindle by the third day of camp.
+Exorbitant|adjective|The movie theater charged an exorbitant price for popcorn.
+Expound|verb|The professor expounded on her theory for over an hour.
+Fallow|adjective|The farmer left the field fallow for a year to rest the soil.
+Futile|adjective|Trying to stay dry in that downpour was futile.
+Haphazard|adjective|His haphazard packing meant he forgot his toothbrush.
+Hoard|verb|Squirrels hoard acorns to eat during the winter.
+Impede|verb|Fallen trees impeded the rescue workers.
+Incite|verb|The speaker tried to incite the crowd to riot.
+Meager|adjective|The stray dog survived on meager scraps of food.
+Meander|verb|The river meanders through the valley.
+Nimble|adjective|The nimble goat climbed the steep rocks with ease.
+Obliterate|verb|The bulldozer obliterated the old shed in minutes.
+Omen|noun|Some people think a black cat crossing your path is a bad omen.
+Persevere|verb|Even after failing twice, she persevered and passed her driving test.
+Pinnacle|noun|Winning the gold medal was the pinnacle of her career.
+Plight|noun|The news story drew attention to the plight of the flood victims.
+Prowess|noun|His prowess on the basketball court earned him a scholarship.
+Quaint|adjective|We stayed in a quaint cottage with a thatched roof.
+Revel|verb|The kids reveled in their first snow day of the year.
+Rustic|adjective|The rustic cabin had no electricity, just a wood stove.
+Shun|verb|The other birds shunned the injured crow.
+Skirmish|noun|A brief skirmish broke out between the two armies at dawn.
+Steadfast|adjective|Her steadfast friend stood by her through every hard time.
+Teem|verb|The coral reef teems with colorful fish.
+Thwart|verb|The goalie thwarted every attempt to score.
+Tirade|noun|The angry customer launched into a tirade about the late delivery.
+Trite|adjective|"Follow your dreams" is a trite piece of graduation advice.
+Verdant|adjective|After the spring rains, the hills were verdant and lush.
+Wily|adjective|The wily raccoon figured out how to open the trash can.
+Yearn|verb|After a month at camp, he yearned for his own bed.
+Zenith|noun|The sun reaches its zenith around noon.

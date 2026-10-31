@@ -1,0 +1,44 @@
+# Words added on top of the Day lists, one per line: Word|Definition
+# build-words.js adds these after the Day-list words, so existing days keep their words.
+Amicable|Friendly and without disagreement
+Anguish|Severe mental or physical pain
+Banter|Playful, friendly teasing talk
+Cantankerous|Bad-tempered and argumentative
+Chivalrous|Courteous and gallant, especially toward those in need
+Conjecture|An opinion formed without complete information
+Cordial|Warm and friendly
+Debunk|To expose as false
+Decipher|To figure out the meaning of
+Desolate|Empty and bleak; without people
+Dwindle|To gradually become smaller
+Exorbitant|Unreasonably high in price or amount
+Expound|To explain in detail
+Fallow|Plowed but left unplanted; inactive
+Futile|Having no useful result
+Haphazard|Lacking order or plan; random
+Hoard|To collect and hide away a large supply
+Impede|To slow or block progress
+Incite|To stir up or provoke
+Meager|Lacking in quantity or quality
+Meander|To wander slowly along a winding course
+Nimble|Quick and light in movement
+Obliterate|To destroy completely
+Omen|A sign of good or bad things to come
+Persevere|To keep going despite difficulty
+Pinnacle|The highest point of achievement
+Plight|A dangerous or difficult situation
+Prowess|Great skill or ability
+Quaint|Attractively old-fashioned
+Revel|To take great pleasure in
+Rustic|Relating to the countryside; simple
+Shun|To deliberately avoid
+Skirmish|A brief fight or conflict
+Steadfast|Firm and unwavering in loyalty
+Teem|To be full of; swarm
+Thwart|To prevent someone from succeeding
+Tirade|A long, angry speech of criticism
+Trite|Overused and lacking originality
+Verdant|Green with lush plant growth
+Wily|Clever at tricking others; crafty
+Yearn|To have a strong desire or longing
+Zenith|The highest point; peak

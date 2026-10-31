@@ -46,8 +46,33 @@ for (const line of fs.readFileSync(path.join(dir, "examples.txt"), "utf8").split
   examples[word.toLowerCase()] = { pos, sentence: rest.join("|") };
 }
 
+function shuffle(list, seed) {
+  const rand = random(seed);
+  for (let i = list.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [list[i], list[j]] = [list[j], list[i]];
+  }
+  return list;
+}
+
+// Extra words live in added-words.txt as "Word|Definition" lines. They are
+// shuffled on their own and go after the Day-list words, so adding words
+// never moves the words already in earlier days.
 sets.sort((a, b) => a.day - b.day);
-const all = sets.flatMap((s) => s.words);
+const listed = sets.flatMap((s) => s.words);
+const added = [];
+for (const line of fs.readFileSync(path.join(dir, "added-words.txt"), "utf8").split(/\r?\n/)) {
+  if (line.startsWith("#") || !line.includes("|")) continue;
+  const [word, definition] = line.split("|").map((c) => c.trim());
+  added.push([word, definition]);
+}
+const seen = new Set();
+for (const [word] of listed.concat(added)) {
+  if (seen.has(word.toLowerCase())) throw new Error(`"${word}" appears more than once`);
+  seen.add(word.toLowerCase());
+}
+
+const all = shuffle(listed, SEED).concat(shuffle(added, SEED + 1));
 const missing = [];
 for (const w of all) {
   // Each word becomes [word, definition, sentence, part of speech]
@@ -56,11 +81,6 @@ for (const w of all) {
   else missing.push(w[0]);
 }
 if (missing.length) console.log(`Not in examples.txt: ${missing.join(", ")}`);
-const rand = random(SEED);
-for (let i = all.length - 1; i > 0; i--) {
-  const j = Math.floor(rand() * (i + 1));
-  [all[i], all[j]] = [all[j], all[i]];
-}
 const out = [];
 for (let i = 0; i < all.length; i += PER_DAY) {
   out.push({ name: "Day " + (out.length + 1), words: all.slice(i, i + PER_DAY) });
