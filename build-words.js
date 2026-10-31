@@ -37,8 +37,23 @@ function random(seed) {
   };
 }
 
+// Example sentences live in examples.txt as "Word|Sentence" lines.
+const examples = {};
+for (const line of fs.readFileSync(path.join(dir, "examples.txt"), "utf8").split(/\r?\n/)) {
+  const bar = line.indexOf("|");
+  if (line.startsWith("#") || bar < 0) continue;
+  examples[line.slice(0, bar).trim().toLowerCase()] = line.slice(bar + 1).trim();
+}
+
 sets.sort((a, b) => a.day - b.day);
 const all = sets.flatMap((s) => s.words);
+const missing = [];
+for (const w of all) {
+  const ex = examples[w[0].toLowerCase()];
+  if (ex) w.push(ex);
+  else missing.push(w[0]);
+}
+if (missing.length) console.log(`No example sentence for: ${missing.join(", ")}`);
 const rand = random(SEED);
 for (let i = all.length - 1; i > 0; i--) {
   const j = Math.floor(rand() * (i + 1));

@@ -1,0 +1,960 @@
+# Example sentences for the flashcards, one per line: Word|Sentence
+# build-words.js matches these to the words in the Day lists.
+Abate|We waited inside until the storm began to abate.
+Aberrant|The scientist could not explain the aberrant test results.
+Abstain|She chose to abstain from dessert during training season.
+Acrimony|The divorce was settled with surprising acrimony on both sides.
+Adulterate|The company was fined for adulterating its honey with corn syrup.
+Aesthetic|They chose the blue tiles for purely aesthetic reasons.
+Alacrity|He accepted the invitation to the concert with alacrity.
+Ambiguous|The ending of the movie was ambiguous, so we argued about it all night.
+Ambivalent|I feel ambivalent about moving: excited, but sad to leave my friends.
+Anomaly|A snowstorm in July would be a true anomaly.
+Apathy|Voter apathy kept turnout low in the school election.
+Arduous|The hikers made the arduous climb to the summit in six hours.
+Articulate|She is an articulate speaker who explains ideas clearly.
+Austere|The monk lived in an austere room with only a bed and a desk.
+Benevolent|A benevolent neighbor shoveled our driveway every winter.
+Candid|My coach gave me a candid assessment of my weaknesses.
+Capricious|The capricious weather changed from sunny to stormy in minutes.
+Censure|The senator faced censure for his dishonest remarks.
+Coherent|Your essay needs a coherent argument from start to finish.
+Complacent|After winning ten games, the team grew complacent and lost.
+Conciliatory|He sent a conciliatory note to end the argument.
+Concise|Keep your answer concise; one paragraph is enough.
+Congenial|The congenial host made every guest feel welcome.
+Conspicuous|His bright orange jacket was conspicuous in the crowd.
+Convoluted|The plot was so convoluted that I lost track of the characters.
+Credulous|Only a credulous person would believe that email is from a prince.
+Cursory|A cursory glance at the test showed it was harder than expected.
+Deference|In deference to her grandmother, she spoke quietly at dinner.
+Deplete|The long drought began to deplete the town's water supply.
+Derivative|Critics called the new band derivative of older rock groups.
+Diligent|A diligent student, he reviewed his notes every night.
+Discord|Discord among the members broke up the club.
+Disparage|It is unkind to disparage someone's work in front of others.
+Dubious|I was dubious about the shortcut, and we did get lost.
+Eccentric|The eccentric inventor wore a different hat every day.
+Eloquent|Her eloquent speech brought the audience to its feet.
+Enigmatic|The Mona Lisa is famous for her enigmatic smile.
+Ephemeral|A rainbow is ephemeral, gone within minutes.
+Erudite|The erudite professor could quote poets in five languages.
+Exacerbate|Scratching a mosquito bite will only exacerbate the itch.
+Exemplary|Her exemplary behavior earned her a citizenship award.
+Fastidious|He is fastidious about keeping his sneakers spotless.
+Fortuitous|Our fortuitous meeting at the airport led to a lifelong friendship.
+Frugal|A frugal shopper, she always compares prices before buying.
+Gregarious|Gregarious by nature, he talked to everyone at the party.
+Hackneyed|The story was full of hackneyed phrases like "it was a dark and stormy night."
+Hypothetical|Let's consider a hypothetical situation: what if school were year-round?
+Impartial|A referee must stay impartial no matter which team is winning.
+Impetuous|In an impetuous moment, he quit the team without thinking.
+Implicit|Her silence was an implicit admission that she was wrong.
+Impudent|The impudent student rolled his eyes at the principal.
+Inadvertent|My inadvertent click deleted the whole file.
+Incessant|The dog's incessant barking kept me awake all night.
+Indifferent|He seemed indifferent to whether we went to the beach or the park.
+Inevitable|With so little practice, losing the match was inevitable.
+Ingenious|She came up with an ingenious way to fix the leak with tape.
+Innocuous|The question seemed innocuous, but it started an argument.
+Insolent|The insolent customer shouted at the cashier.
+Intrepid|The intrepid explorers crossed the frozen tundra.
+Lament|The town gathered to lament the loss of its old library.
+Lethargic|The heat made everyone feel lethargic.
+Lucid|The teacher gave a lucid explanation of fractions.
+Meticulous|She kept meticulous notes on every experiment.
+Mundane|Doing laundry is a mundane but necessary chore.
+Novice|As a novice skier, I stayed on the beginner slopes.
+Obstinate|The obstinate mule refused to cross the bridge.
+Ostentatious|He wore an ostentatious gold watch to show off his wealth.
+Perfunctory|She gave a perfunctory wave without looking up from her phone.
+Pragmatic|Taking the bus was the pragmatic choice since parking was expensive.
+Prudent|It is prudent to save some money for emergencies.
+Quell|The teacher quickly quelled the noise in the classroom.
+Reticent|He was reticent about his past and rarely shared stories.
+Scrutinize|Lawyers scrutinize every word of a contract.
+Superfluous|Delete any superfluous words to make your essay stronger.
+Tenacious|The tenacious terrier would not let go of the rope.
+Trivial|Don't waste time arguing over trivial details.
+Ubiquitous|Smartphones have become ubiquitous in modern life.
+Vindicate|The video footage vindicated the player accused of cheating.
+Zealous|The zealous fan painted his face in team colors for every game.
+Abhor|I abhor cruelty to animals.
+Abridge|The publisher released an abridged version of the long novel for students.
+Acquiesce|After an hour of pleading, Dad finally acquiesced and let us stay up late.
+Adroit|The adroit goalie blocked every shot in the final period.
+Affable|Our affable new neighbor always stops to chat.
+Alleviate|The medicine helped alleviate her headache.
+Altruistic|Volunteering at the shelter every weekend is an altruistic act.
+Amiable|The amiable shopkeeper knew every customer by name.
+Antagonize|Don't antagonize your sister by teasing her.
+Apprehensive|I was apprehensive about my first day at a new school.
+Assuage|A warm hug helped assuage the child's fears.
+Audacious|The audacious climber attempted the peak without oxygen.
+Belligerent|The belligerent fan was escorted out of the stadium.
+Boisterous|The boisterous crowd cheered loudly after every goal.
+Brevity|The speech was praised for its brevity: just two minutes long.
+Caustic|His caustic remarks about her drawing made her cry.
+Clandestine|The spies held a clandestine meeting at midnight.
+Cognizant|Drivers must be cognizant of pedestrians in school zones.
+Condone|The school does not condone cheating of any kind.
+Conundrum|Choosing between two great colleges was a real conundrum.
+Debilitate|The flu can debilitate even healthy adults for weeks.
+Deride|Critics derided the movie as the worst of the year.
+Despondent|After losing the championship, the team was despondent.
+Diffident|The diffident boy rarely raised his hand in class.
+Disdain|She looked at the soggy sandwich with disdain.
+Dissent|One judge wrote a strong dissent from the majority opinion.
+Docile|The docile horse let the children ride it.
+Elated|She was elated to learn she had made the team.
+Embellish|He tends to embellish his fishing stories, making the fish bigger each time.
+Exuberant|The exuberant puppy jumped on everyone at the door.
+Fervent|She is a fervent supporter of animal rights.
+Flagrant|The player was ejected for a flagrant foul.
+Garrulous|The garrulous passenger talked for the entire flight.
+Gratuitous|The insult was gratuitous; nobody had provoked him.
+Gullible|The gullible tourist paid twenty dollars for a fake map.
+Haughty|The haughty actress refused to sign autographs.
+Hindrance|The heavy backpack was a hindrance on the steep trail.
+Humility|Despite her fame, she showed great humility.
+Ignominious|The team suffered an ignominious defeat, losing 10 to 0.
+Immutable|Some people believe the laws of physics are immutable.
+Impasse|Negotiations reached an impasse when neither side would compromise.
+Impeccable|Her manners at the formal dinner were impeccable.
+Imperious|The imperious manager barked orders at everyone.
+Impervious|The raincoat is impervious to water.
+Inclement|The game was postponed due to inclement weather.
+Incongruous|A tuxedo looked incongruous at the beach picnic.
+Indolent|The indolent cat slept in the sun all afternoon.
+Ineffable|Standing at the Grand Canyon, she felt an ineffable sense of awe.
+Inept|The inept magician dropped his cards three times.
+Ingenuous|The ingenuous child believed every story he was told.
+Inhibit|Cold temperatures inhibit the growth of bacteria.
+Innate|She has an innate talent for music.
+Insipid|The soup was insipid and needed salt.
+Instigate|He was suspended for trying to instigate a fight.
+Intangible|Trust is an intangible but valuable part of friendship.
+Intractable|The intractable problem had stumped engineers for years.
+Invigorate|A cold shower can invigorate you in the morning.
+Irascible|The irascible old man yelled at kids who stepped on his lawn.
+Jubilant|Jubilant fans poured onto the field after the victory.
+Judicious|A judicious use of spices makes the dish delicious.
+Laconic|His laconic reply was simply "No."
+Languid|We spent a languid afternoon floating in the pool.
+Latent|Her latent artistic talent emerged when she took a painting class.
+Lavish|The wedding featured a lavish feast with ten courses.
+Listless|The sick puppy lay listless in its bed.
+Loquacious|My loquacious aunt can talk for hours on the phone.
+Malevolent|The villain gave a malevolent laugh.
+Malleable|Young children's minds are highly malleable.
+Mitigate|Planting trees can help mitigate flooding.
+Morose|He was morose for days after his dog ran away.
+Nonchalant|She tried to look nonchalant, but she was nervous about the results.
+Obscure|The trivia question was about an obscure 18th-century poet.
+Officious|The officious hall monitor wrote up students for walking too slowly.
+Opulent|The palace was filled with opulent chandeliers and gold furniture.
+Paradox|It is a paradox that the more you learn, the less you feel you know.
+Placate|Mom offered ice cream to placate the crying toddler.
+Plausible|His excuse for being late was plausible, so the teacher accepted it.
+Precarious|The vase sat in a precarious spot on the edge of the shelf.
+Recalcitrant|The recalcitrant student refused to follow any instructions.
+Abash|The unexpected praise seemed to abash the shy girl.
+Abdicate|The king chose to abdicate the throne in favor of his son.
+Abeyance|The construction project was held in abeyance until funding arrived.
+Abject|The refugees lived in abject poverty.
+Abnegation|The nun's life was one of abnegation and service.
+Abolish|Congress voted to abolish the outdated law.
+Abominable|The prisoners were held in abominable conditions.
+Abound|Wildflowers abound in the meadow each spring.
+Abrasive|His abrasive manner made it hard for him to keep friends.
+Abrogate|The new government moved to abrogate the old treaty.
+Abscond|The cashier absconded with the day's earnings.
+Absolve|The judge's ruling absolved him of all blame.
+Abstruse|The lecture on quantum theory was too abstruse for most of us.
+Abysmal|The restaurant's service was abysmal; we waited an hour for water.
+Accede|The principal acceded to the students' request for a longer lunch.
+Accentuate|The red scarf accentuated her dark hair.
+Accolade|The film received every major accolade, including best picture.
+Accost|A stranger accosted us on the street, demanding money.
+Accrue|Interest will accrue on your savings account each month.
+Acerbic|The critic was known for her acerbic reviews.
+Acuity|An eagle's visual acuity lets it spot prey from far away.
+Acumen|Her business acumen helped the small shop grow into a chain.
+Adage|"Look before you leap" is a familiar adage.
+Adamant|He was adamant that he had locked the door.
+Addle|Too many instructions at once can addle your brain.
+Adept|She is adept at solving puzzles quickly.
+Adhere|All players must adhere to the rules of the game.
+Admonish|The librarian admonished the boys for talking loudly.
+Adulation|The pop star basked in the adulation of thousands of fans.
+Adverse|The medicine had no adverse side effects.
+Advocate|She advocates for more bike lanes in our city.
+Aesthete|The aesthete spent hours admiring each painting in the museum.
+Affectation|His British accent was an affectation; he grew up in Ohio.
+Affinity|She has a natural affinity for animals.
+Affluent|They live in an affluent neighborhood with large houses.
+Aggrandize|The mayor tried to aggrandize his role in the city's success.
+Aggregate|The team's aggregate score over three games was the highest in the league.
+Aghast|We were aghast when we saw the damage from the flood.
+Agile|The agile cat leaped from the fence to the roof.
+Alienate|Constant bragging will alienate your friends.
+Allay|The doctor tried to allay the patient's fears about surgery.
+Allege|The report alleges that the company hid safety problems.
+Alloy|Bronze is an alloy of copper and tin.
+Allude|In her speech, she alluded to problems without naming anyone.
+Allure|The allure of the big city drew him away from the farm.
+Aloof|The new student seemed aloof, but she was just shy.
+Altercation|An altercation broke out between two drivers after the crash.
+Amalgamate|The two small schools amalgamated into one large district.
+Amble|We ambled along the beach, collecting shells.
+Ameliorate|The new laws were meant to ameliorate conditions for workers.
+Amenable|My parents were amenable to the idea of a family camping trip.
+Amorphous|The plan was still amorphous, with no clear details.
+Anachronism|A wristwatch in a movie about ancient Rome is an anachronism.
+Analogous|The heart is analogous to a pump.
+Anarchy|After the government collapsed, the country fell into anarchy.
+Ancillary|The hospital hired ancillary staff to help the nurses.
+Anecdote|Grandpa told a funny anecdote about his first car.
+Animosity|There was long-standing animosity between the rival schools.
+Annex|The city plans to annex the land next to the park.
+Antecedent|The telegraph was an antecedent of the telephone.
+Antipathy|She felt a strong antipathy toward people who litter.
+Antiquated|The office still used antiquated computers from the 1990s.
+Antithesis|Her calm attitude was the antithesis of her brother's panic.
+Apex|The climbers reached the apex of the mountain at noon.
+Aplomb|She handled the tough interview questions with aplomb.
+Apocryphal|The story about George Washington and the cherry tree is apocryphal.
+Appease|The company lowered prices to appease angry customers.
+Apprehend|Police apprehended the thief two blocks from the store.
+Approbation|The plan won the approbation of the whole committee.
+Aptitude|He showed an early aptitude for math.
+Arbiter|The umpire is the final arbiter of balls and strikes.
+Arbitrary|The seating chart seemed arbitrary, with no clear system.
+Arcane|The old book was full of arcane symbols.
+Archaic|Words like "thou" and "thee" are archaic.
+Ardent|He is an ardent fan of the local soccer team.
+Arid|Cactuses grow well in arid climates.
+Aristocratic|The aristocratic family owned a castle and vast lands.
+Arrogant|The arrogant champion refused to shake his opponent's hand.
+Ascetic|The ascetic hermit ate only bread and water.
+Askew|After the windy walk, his tie was askew.
+Baffle|The magician's final trick baffled the audience.
+Balk|The horse balked at the high jump and refused to go over.
+Banal|The song's banal lyrics rhymed "love" with "above" yet again.
+Bane|Mosquitoes are the bane of summer camping trips.
+Barrage|The mayor faced a barrage of questions from reporters.
+Belabor|Let's not belabor the point; we all agree it was a mistake.
+Beleaguer|Constant injuries beleaguered the team all season.
+Belie|His calm smile belied how nervous he really felt.
+Bemused|She looked bemused when the waiter brought the wrong order.
+Benign|The doctor said the lump was benign and nothing to worry about.
+Bequeath|She bequeathed her piano to her granddaughter.
+Berate|The coach berated the players for skipping practice.
+Beseech|"I beseech you to spare my village," the farmer begged the king.
+Besiege|Fans besieged the singer as she left the theater.
+Bewilder|The maze of hallways bewildered the new students.
+Bias|A good judge must set aside any personal bias.
+Bland|Without any seasoning, the chicken was bland.
+Blasphemy|In the old town, criticizing the temple was considered blasphemy.
+Blatant|Copying the answers word for word was a blatant act of cheating.
+Blithe|He showed a blithe disregard for the rules.
+Bluster|The bully would bluster and threaten, but he never followed through.
+Bogus|The website was selling bogus concert tickets.
+Bolster|The good grade bolstered her confidence.
+Bombastic|The candidate's bombastic speech was full of big words but few ideas.
+Boon|The new library was a boon to the whole community.
+Bravado|Despite his bravado, he was terrified of the roller coaster.
+Brazen|The thief made a brazen escape in broad daylight.
+Brittle|Old rubber bands become brittle and snap easily.
+Broach|I wasn't sure how to broach the subject of my bad grade with my parents.
+Burgeon|The town's population began to burgeon after the factory opened.
+Burnish|He burnished the old trophy until it gleamed.
+Buttress|The lawyer buttressed her argument with strong evidence.
+Cacophony|A cacophony of car horns filled the street.
+Cajole|She cajoled her brother into doing her chores by praising his strength.
+Calamity|The earthquake was the worst calamity in the city's history.
+Callous|It was callous of him to laugh when she fell.
+Candor|I appreciated her candor when she told me my essay needed work.
+Capitulate|After a long siege, the city was forced to capitulate.
+Captivate|The magician's tricks captivated the children.
+Castigate|The editor castigated the reporter for getting the facts wrong.
+Catalyst|The new coach was the catalyst for the team's turnaround.
+Catharsis|Writing in her journal provided a catharsis after a hard day.
+Caucus|Party members held a caucus to choose their candidate.
+Celerity|The firefighters responded with remarkable celerity.
+Chagrin|Much to his chagrin, his little brother beat him at chess.
+Chaotic|The kitchen was chaotic during the holiday dinner rush.
+Charlatan|The charlatan sold fake medicine that promised to cure everything.
+Chastise|Mom chastised me for leaving my bike in the rain.
+Chicanery|The election was full of chicanery and false promises.
+Chronic|She suffers from chronic back pain.
+Circuitous|The taxi took a circuitous route, and the fare doubled.
+Circumspect|Be circumspect about what you post online.
+Circumvent|He tried to circumvent the rules by using his brother's account.
+Clairvoyant|The fortune teller claimed to be clairvoyant.
+Clamor|The clamor of the cafeteria made it hard to hear.
+Clemency|The governor granted clemency to the elderly prisoner.
+Cliche|"Time heals all wounds" is a cliche.
+Coagulate|Blood begins to coagulate soon after a cut.
+Coalesce|The scattered groups coalesced into one large protest.
+Coerce|The bully tried to coerce the younger kids into giving him their lunch money.
+Cogent|She made a cogent argument for a later school start time.
+Collaborate|The two artists collaborated on a mural.
+Collusion|The companies were fined for collusion in setting prices.
+Commend|The mayor commended the firefighters for their bravery.
+Commensurate|Her salary is commensurate with her experience.
+Compassion|The nurse treated every patient with compassion.
+Compelling|The documentary made a compelling case for protecting the oceans.
+Complement|The sauce is the perfect complement to the pasta.
+Compliant|The compliant student did everything the teacher asked.
+Compound|Lying about the broken window only compounded his trouble.
+Comprehensive|The final exam was comprehensive, covering the whole year.
+Compromise|After a long debate, they reached a compromise.
+Concede|He finally conceded that she had been right all along.
+Conciliate|The manager tried to conciliate the angry customer with a free meal.
+Concur|I concur with your opinion; the plan makes sense.
+Condescend|The older students often condescended to the freshmen.
+Confound|The puzzle confounded even the smartest kids in class.
+Congregate|Students congregate in the hallway before the bell rings.
+Connoisseur|A cheese connoisseur can name the origin of any cheese by taste.
+Consensus|The group reached a consensus to go bowling.
+Consolation|Her only consolation after losing was a free T-shirt.
+Constrain|A tight budget constrained our vacation plans.
+Contempt|He spoke of cheaters with contempt.
+Contentious|Homework rules are a contentious topic at our school.
+Contrite|The contrite boy apologized for breaking the window.
+Contrive|She contrived a clever plan to surprise her friend.
+Conventional|Instead of a conventional cake, they served a tower of donuts.
+Convey|Her face conveyed her disappointment without a word.
+Convivial|The dinner party had a convivial atmosphere.
+Copious|She took copious notes during the lecture.
+Corroborate|Two witnesses corroborated his story.
+Cosmopolitan|New York is a cosmopolitan city with people from all over the world.
+Covet|He coveted his friend's new bike.
+Cower|The puppy cowered under the bed during the thunderstorm.
+Credence|The new evidence gave credence to her theory.
+Credible|The witness gave a credible account of the accident.
+Criteria|The judges listed their criteria for choosing the winner.
+Cryptic|She left a cryptic note that said only "Look under the stairs."
+Culminate|The school year will culminate in a big graduation ceremony.
+Culpable|The driver was found culpable for the accident.
+Cumbersome|The cumbersome suitcase was hard to carry up the stairs.
+Cumulative|The cumulative effect of small savings can be huge.
+Curtail|Rain curtailed our picnic plans.
+Cynical|He was cynical about the politician's promises.
+Daunt|The size of the project did not daunt her.
+Dearth|There is a dearth of good pizza places in our town.
+Debacle|The school play was a debacle when the set collapsed.
+Debase|Adding cheap metals debased the value of the coins.
+Decimate|The disease decimated the deer population.
+Decorum|Students are expected to show decorum during assemblies.
+Deface|Vandals defaced the statue with spray paint.
+Defame|The article defamed the senator with false claims.
+Deft|With a deft flick of the wrist, he flipped the pancake.
+Defunct|The video rental store is now defunct.
+Deign|The celebrity did not deign to answer the fan's question.
+Deleterious|Smoking has deleterious effects on health.
+Deliberate|The foul was deliberate, not an accident.
+Delineate|The map clearly delineates the park's boundaries.
+Delude|Don't delude yourself into thinking you can pass without studying.
+Deluge|The office received a deluge of complaints.
+Demagogue|The demagogue won votes by stirring up fear.
+Demean|Don't demean yourself by begging for attention.
+Demur|When asked to sing, she demurred, saying she had a sore throat.
+Demure|The demure girl smiled quietly when she won the prize.
+Denigrate|It is unfair to denigrate someone's culture.
+Denounce|The leaders denounced the violent attack.
+Depict|The painting depicts a stormy sea.
+Deplore|We deplore any form of bullying.
+Depose|The rebels tried to depose the king.
+Deprecate|The teacher deprecated the use of phones in class.
+Derogatory|Using derogatory names is never acceptable.
+Despot|The despot jailed anyone who criticized him.
+Destitute|After the fire, the family was left destitute.
+Deter|The fence was built to deter deer from eating the garden.
+Detrimental|Too much screen time can be detrimental to sleep.
+Devious|The devious fox tricked the crow into dropping its cheese.
+Devout|Her devout grandmother attends services every morning.
+Dexterity|Playing the violin requires great dexterity.
+Dichotomy|The story explores the dichotomy between good and evil.
+Didactic|The fable has a didactic purpose: to teach a moral.
+Digress|The teacher often digressed into stories about his cat.
+Dilapidated|The dilapidated barn looked ready to fall over.
+Dilatory|His dilatory approach meant the project was finished late.
+Diligence|Her diligence paid off when she aced the exam.
+Diminutive|The diminutive puppy fit in the palm of my hand.
+Discern|It was hard to discern the path in the dark.
+Disclose|The company refused to disclose its profits.
+Disconcert|The loud noise disconcerted the speaker.
+Discordant|The band's discordant notes made the audience wince.
+Discredit|The new study discredited the old theory.
+Discrepancy|There was a discrepancy between the receipt and the bill.
+Discreet|Please be discreet about the surprise party.
+Discrete|The project was divided into discrete steps.
+Disgruntled|Disgruntled fans booed the team off the field.
+Disheveled|He arrived disheveled after running through the rain.
+Disparate|The club brought together students from disparate backgrounds.
+Dispel|The teacher's kind words dispelled my worries.
+Disposition|She has a cheerful disposition.
+Dissemble|He tried to dissemble his fear with jokes.
+Disseminate|The school used email to disseminate the news.
+Dissonance|The dissonance of the out-of-tune piano was painful.
+Distill|She distilled the long article into three key points.
+Distraught|He was distraught when he lost his grandmother's ring.
+Diverge|The two paths diverge at the old oak tree.
+Divulge|She refused to divulge her secret recipe.
+Dogmatic|The dogmatic speaker refused to consider any other view.
+Dormant|The volcano has been dormant for centuries.
+Duplicity|The spy's duplicity was finally exposed.
+Earnest|He made an earnest effort to improve his grades.
+Ebullient|The ebullient host greeted everyone with a big hug.
+Eclectic|Her music collection is eclectic, from jazz to heavy metal.
+Edify|The museum tour was meant to edify as well as entertain.
+Efface|Time had effaced the writing on the old gravestone.
+Effervescent|Her effervescent personality made everyone smile.
+Effrontery|He had the effrontery to ask for a raise after showing up late all week.
+Egregious|The referee made an egregious error that cost us the game.
+Elicit|The joke elicited a loud laugh from the audience.
+Elucidate|The teacher drew a diagram to elucidate the concept.
+Elusive|The elusive snow leopard is rarely seen in the wild.
+Emaciated|The rescued dog was emaciated but recovered quickly.
+Embezzle|The treasurer was caught embezzling money from the club.
+Eminent|An eminent scientist gave the graduation speech.
+Emulate|Young players often emulate their sports heroes.
+Encumber|Heavy gear encumbered the hikers on the steep trail.
+Endemic|Kangaroos are endemic to Australia.
+Enervate|The long, hot hike enervated the whole group.
+Engender|Kind words can engender trust.
+Enhance|Good lighting can enhance a photograph.
+Enmity|The enmity between the two families lasted generations.
+Ennui|Stuck inside on a rainy day, the kids were overcome by ennui.
+Enthrall|The storyteller enthralled the audience.
+Entice|The smell of popcorn enticed us into the theater.
+Enumerate|She enumerated the reasons she deserved a later curfew.
+Epitome|He is the epitome of good sportsmanship.
+Equanimity|She accepted the bad news with equanimity.
+Equivocal|His equivocal answer left us unsure whether he was coming.
+Eradicate|Scientists hope to eradicate the disease.
+Erratic|The car's erratic movements suggested the driver was tired.
+Erroneous|The newspaper corrected its erroneous report.
+Escalate|The argument began to escalate into a shouting match.
+Esoteric|The lecture was full of esoteric terms only experts understood.
+Espouse|She espouses the importance of recycling.
+Euphemism|"Passed away" is a euphemism for "died."
+Euphoria|The team felt pure euphoria after winning the title.
+Evanescent|The evanescent glow of the sunset faded quickly.
+Evasive|When asked where he had been, he gave an evasive answer.
+Exasperate|His constant tapping exasperated everyone in the room.
+Exemplify|Her actions exemplify true kindness.
+Exonerate|DNA evidence exonerated the man after years in prison.
+Expedient|Lying seemed expedient, but it caused more trouble later.
+Expedite|Paying extra will expedite the shipping.
+Explicit|The instructions were explicit: no phones during the test.
+Exploit|The company exploited its workers by paying them very little.
+Extol|The critics extolled the new movie as a masterpiece.
+Extraneous|Remove any extraneous information from your report.
+Extricate|The firefighters extricated the driver from the wrecked car.
+Exult|The fans exulted when the final buzzer sounded.
+Fabricate|He fabricated an excuse about a flat tire.
+Facade|Behind her cheerful facade, she was very worried.
+Facetious|He was being facetious when he said he loved homework.
+Fallacious|The argument was based on fallacious reasoning.
+Fallible|Even experts are fallible and sometimes make mistakes.
+Famished|After the long hike, we were famished.
+Fanatical|He is fanatical about keeping his room clean.
+Fathom|I cannot fathom why anyone would skip dessert.
+Fawning|The fawning assistant agreed with everything the boss said.
+Feasible|Building a treehouse this weekend is feasible if we start early.
+Feign|She feigned illness to avoid the test.
+Felicitous|Her felicitous choice of words calmed everyone down.
+Ferocity|The lion attacked with great ferocity.
+Fervor|The crowd sang the anthem with fervor.
+Fickle|The fickle cat loves you one minute and ignores you the next.
+Fictitious|The characters in the novel are fictitious.
+Figurative|"It's raining cats and dogs" is a figurative expression.
+Flaunt|He liked to flaunt his new sneakers at school.
+Flippant|Her flippant response to the serious question upset the teacher.
+Flourish|The garden flourished after the spring rains.
+Fluctuate|Temperatures fluctuate a lot in the desert.
+Foible|Grandpa's habit of humming while he eats is a harmless foible.
+Foment|The rumors fomented unrest among the workers.
+Forbearance|The teacher showed great forbearance with the noisy class.
+Foreboding|A sense of foreboding came over her as the sky darkened.
+Forestall|She paid the bill early to forestall any late fees.
+Forlorn|A forlorn puppy sat alone in the rain.
+Formidable|The champion was a formidable opponent.
+Forsake|He promised never to forsake his friends.
+Forthright|She gave a forthright answer, with no sugarcoating.
+Fortitude|She showed great fortitude during her long recovery.
+Fractious|The fractious toddlers fought over every toy.
+Frivolous|She spent her allowance on frivolous things like glitter pens.
+Fruitless|Our search for the lost keys was fruitless.
+Furtive|He cast a furtive glance at his neighbor's test.
+Galvanize|The flood galvanized the town into building a new levee.
+Garish|The garish neon sign clashed with the old brick building.
+Garner|The petition garnered over a thousand signatures.
+Gaunt|After weeks at sea, the sailors looked gaunt.
+Genial|The genial host made sure everyone had a drink.
+Germane|Keep your comments germane to the topic of the debate.
+Gingerly|She stepped gingerly across the icy sidewalk.
+Glib|His glib excuse did not fool the teacher.
+Grandiloquent|The grandiloquent speaker used ten words where one would do.
+Gravity|He didn't understand the gravity of the situation until the police arrived.
+Grievous|Leaving the gate open was a grievous mistake.
+Grim|The doctor's face was grim as she delivered the news.
+Guile|The fox used guile to steal the farmer's chickens.
+Gusto|He ate his grandmother's lasagna with gusto.
+Harangue|The coach delivered a long harangue after the loss.
+Harbinger|The first robin is a harbinger of spring.
+Hedonism|His life of hedonism left him with no savings.
+Hegemony|The empire held hegemony over the region for centuries.
+Heresy|Saying you dislike pizza is heresy in our house.
+Hiatus|The band went on a two-year hiatus before releasing a new album.
+Hierarchy|In the army, there is a strict hierarchy of ranks.
+Hinder|Heavy traffic hindered our trip to the airport.
+Histrionic|His histrionic reaction to a paper cut was a bit much.
+Homogeneous|The town's population was fairly homogeneous.
+Hyperbole|"I've told you a million times" is hyperbole.
+Iconoclast|The young artist was an iconoclast who broke every rule.
+Idiosyncrasy|One of her idiosyncrasies is eating pizza with a fork.
+Ignoble|Cheating to win is an ignoble act.
+Illicit|Police shut down the illicit gambling ring.
+Illusory|The feeling of safety in the old car was illusory.
+Immaculate|Her bedroom was immaculate after a full day of cleaning.
+Imminent|Dark clouds signaled that a storm was imminent.
+Immobile|The deer stood immobile in the headlights.
+Impassive|The guard remained impassive as tourists tried to make him laugh.
+Imperceptible|The change in temperature was almost imperceptible.
+Imperial|The imperial palace was home to the emperor.
+Implacable|The implacable enemy refused every offer of peace.
+Implausible|His story about a dog eating his homework was implausible.
+Implicate|The fingerprints implicated the butler in the crime.
+Impromptu|We held an impromptu dance party in the kitchen.
+Inane|The comedian's inane jokes got only groans.
+Incognito|The movie star traveled incognito in sunglasses and a hat.
+Incorrigible|The incorrigible prankster could not stop playing tricks.
+Incredulous|She was incredulous when she heard she had won the lottery.
+Indelible|The trip left an indelible memory.
+Indignant|He was indignant when he was blamed for something he didn't do.
+Indomitable|Her indomitable spirit helped her finish the marathon.
+Inert|The lizard lay inert on the warm rock.
+Inexorable|The inexorable march of time changes everything.
+Infamous|The infamous pirate terrorized ships for decades.
+Ingratiate|He tried to ingratiate himself with the teacher by bringing apples.
+Inquisitive|The inquisitive child asked "why?" about everything.
+Insatiable|Teenagers seem to have an insatiable appetite.
+Insidious|The insidious disease showed no symptoms for years.
+Insolvent|The company became insolvent and closed its doors.
+Insubordinate|The insubordinate soldier ignored his captain's orders.
+Insular|The insular village was suspicious of outsiders.
+Insurgent|Insurgent forces took control of the capital.
+Integrity|A person of integrity tells the truth even when it is hard.
+Interminable|The interminable car ride felt like it would never end.
+Intervene|A teacher intervened before the argument turned into a fight.
+Intimidate|The big dog's growl was meant to intimidate strangers.
+Intransigent|The intransigent negotiator would not budge on any point.
+Intricate|The quilt had an intricate pattern of tiny stitches.
+Intrinsic|Learning has intrinsic value beyond good grades.
+Inundate|After the announcement, the office was inundated with calls.
+Inveterate|He is an inveterate liar who exaggerates everything.
+Invidious|Comparing siblings is an invidious habit that breeds resentment.
+Irate|The irate customer demanded to see the manager.
+Ironic|It was ironic that the fire station burned down.
+Irrevocable|Once you hit send, the decision is irrevocable.
+Itinerant|The itinerant musician played in a different town each night.
+Jargon|The doctor's medical jargon confused the patient.
+Jeopardize|Skipping practice could jeopardize your spot on the team.
+Jocular|His jocular manner made the long meeting more fun.
+Jovial|The jovial Santa laughed and handed out candy canes.
+Keen|She has a keen eye for spotting errors.
+Labyrinthine|The labyrinthine streets of the old city confused tourists.
+Lackadaisical|His lackadaisical attitude toward homework hurt his grades.
+Lambaste|The critic lambasted the film for its weak plot.
+Languish|The plants languished in the dark basement.
+Largesse|The museum was built through the largesse of a wealthy donor.
+Lassitude|A feeling of lassitude came over her after the long exam.
+Laud|The community lauded the volunteers for their hard work.
+Legacy|The scientist left a legacy of important discoveries.
+Lethal|Some mushrooms contain a lethal poison.
+Levity|His joke added some levity to the tense meeting.
+Liable|If your dog bites someone, you may be liable for the damage.
+Libel|The actor sued the magazine for libel.
+Lithe|The lithe dancer leaped across the stage.
+Litigious|In a litigious society, companies fear being sued.
+Lucrative|Selling lemonade on the hot day proved surprisingly lucrative.
+Ludicrous|The idea of a cat driving a car is ludicrous.
+Lull|There was a brief lull in the storm before the wind picked up again.
+Luminous|The luminous moon lit up the path.
+Lurid|The tabloid printed lurid stories about the celebrity.
+Luxuriant|She had luxuriant, thick hair.
+Magnanimous|The champion was magnanimous in victory, praising her opponent.
+Malady|The doctor could not identify the strange malady.
+Malaise|A general malaise settled over the team after the loss.
+Malice|She spoke without malice, only wanting to help.
+Malinger|He was accused of malingering to get out of gym class.
+Mandate|The new law mandates seat belts for all passengers.
+Manifest|Her joy was manifest in her huge smile.
+Marginal|The new rule made only a marginal difference.
+Marred|The picnic was marred by a sudden downpour.
+Maverick|The maverick scientist ignored traditional methods.
+Mediocre|The restaurant's food was mediocre at best.
+Melancholy|A feeling of melancholy came over him as summer ended.
+Mercenary|His mercenary attitude meant he only helped if he was paid.
+Mercurial|Her mercurial temper made her hard to predict.
+Mettle|The tough final exam tested the students' mettle.
+Mirth|The clown's antics caused great mirth among the children.
+Misanthrope|The misanthrope lived alone in the woods, avoiding everyone.
+Mollify|The apology did little to mollify the angry customer.
+Monotonous|The speaker's monotonous voice put the audience to sleep.
+Morbid|He had a morbid fascination with old graveyards.
+Mores|Every culture has its own social mores.
+Moribund|The once-busy mall is now moribund.
+Myriad|The night sky was filled with a myriad of stars.
+Nadir|Losing his job was the nadir of his career.
+Naive|It was naive of him to think he could finish the project in one night.
+Nefarious|The villain hatched a nefarious plot to steal the crown jewels.
+Negligent|The negligent driver ran a red light.
+Nemesis|The rival school's team has long been our nemesis.
+Neophyte|As a neophyte chess player, he lost every game at first.
+Nostalgic|Looking at old photos made Grandma feel nostalgic.
+Notorious|The street corner was notorious for accidents.
+Novel|She came up with a novel solution no one had tried before.
+Nuance|The actor captured every nuance of the character's emotions.
+Obdurate|The obdurate judge refused to reconsider his decision.
+Obfuscate|The politician tried to obfuscate the issue with confusing statistics.
+Oblivious|He was oblivious to the spinach stuck in his teeth.
+Obsequious|The obsequious waiter bowed every time we spoke.
+Obsolete|Typewriters are mostly obsolete today.
+Obstreperous|The obstreperous crowd shouted down the speaker.
+Obtuse|He was too obtuse to realize she was joking.
+Odious|Cleaning the bathroom is an odious chore.
+Ominous|Ominous dark clouds gathered on the horizon.
+Onerous|Caring for twelve goats was an onerous task.
+Opaque|The frosted glass was opaque, so no one could see inside.
+Opportune|The rain stopped at an opportune moment, just before the parade.
+Oracle|My grandmother is our family oracle on all matters of cooking.
+Ornate|The church had ornate gold carvings on every wall.
+Ostracize|The other kids ostracized him after he told the teacher.
+Overt|There was overt hostility between the two teams.
+Painstaking|Restoring the old painting was painstaking work.
+Palatable|The medicine was made more palatable with cherry flavor.
+Pallid|Her pallid face showed she was still sick.
+Palpable|The tension in the room was palpable before the results were announced.
+Paltry|He was paid a paltry sum for hours of work.
+Panacea|There is no panacea for all of the world's problems.
+Paradigm|The smartphone created a new paradigm for communication.
+Paragon|She is a paragon of honesty.
+Parch|The summer sun parched the lawn brown.
+Pariah|After cheating, he became a pariah on the team.
+Parody|The comedy show performed a parody of a famous movie.
+Parsimonious|The parsimonious old man refused to turn on the heat.
+Partisan|The partisan crowd cheered only for their own candidate.
+Passive|He took a passive role in the group project.
+Pathos|The movie's ending was full of pathos.
+Paucity|There was a paucity of evidence, so the case was dropped.
+Pedantic|The pedantic teacher took off points for every tiny comma error.
+Pensive|She sat in a pensive mood, staring out the window.
+Perceptive|The perceptive teacher noticed that he was upset.
+Peripheral|Those details are peripheral to the main argument.
+Permeate|The smell of baking bread permeated the house.
+Pernicious|Gossip can have a pernicious effect on friendships.
+Perplex|The riddle perplexed everyone at the table.
+Pervasive|Social media has a pervasive influence on teenagers.
+Pessimist|A pessimist sees the glass as half empty.
+Petulant|The petulant child stomped his feet when told no.
+Philanthropy|Her philanthropy funded a new children's hospital.
+Pious|The pious man prayed three times a day.
+Pithy|She ended her speech with a pithy quote.
+Placid|The lake was placid in the early morning.
+Platitude|"Everything happens for a reason" is a common platitude.
+Plethora|The store offers a plethora of ice cream flavors.
+Poignant|The movie's poignant ending made everyone cry.
+Polarize|The debate polarized the class into two angry camps.
+Ponderous|The ponderous elephant moved slowly through the grass.
+Portent|The ancient Romans saw the comet as a portent of disaster.
+Precocious|The precocious five-year-old could already read chapter books.
+Predicament|Locked out in the rain, we were in quite a predicament.
+Preposterous|The idea that the moon is made of cheese is preposterous.
+Pretentious|The pretentious critic used fancy French words to sound smart.
+Prevalent|Colds are prevalent in winter.
+Pristine|The beach was pristine, with no trash in sight.
+Proclivity|My cat has a proclivity for knocking things off tables.
+Prodigal|The prodigal heir spent his entire fortune in a year.
+Prodigious|She has a prodigious memory for names and dates.
+Profound|The book had a profound effect on how I see the world.
+Profuse|He offered profuse apologies for being late.
+Proliferate|Weeds proliferated in the neglected garden.
+Prolific|The prolific author wrote over a hundred books.
+Propensity|He has a propensity to exaggerate.
+Propriety|She always behaved with propriety at formal events.
+Prosaic|His prosaic writing lacked any imagination.
+Provincial|Some found the small town's attitudes provincial.
+Provoke|Don't provoke the dog by pulling its tail.
+Prudish|Her prudish aunt was shocked by the short skirts.
+Pugnacious|The pugnacious boy was always looking for a fight.
+Punctilious|The punctilious accountant checked every number twice.
+Pungent|The pungent smell of garlic filled the kitchen.
+Qualm|She had no qualms about telling him the truth.
+Quandary|I was in a quandary over which dress to wear.
+Quash|The judge quashed the unfair ruling.
+Querulous|The querulous passenger complained about everything.
+Quiescent|The volcano has been quiescent for a century.
+Quixotic|His quixotic plan to end world hunger by himself was admirable but unrealistic.
+Quip|She responded with a quick quip that made everyone laugh.
+Rancor|He held no rancor toward the friend who had wronged him.
+Rant|My uncle likes to rant about the price of gas.
+Rapport|The teacher built a strong rapport with her students.
+Rash|Quitting the team was a rash decision he later regretted.
+Raucous|The raucous party kept the neighbors awake.
+Ravage|The hurricane ravaged the coastal towns.
+Rebuff|She rebuffed his offer of help.
+Rebuke|The teacher rebuked the class for being disrespectful.
+Rebut|The lawyer rose to rebut the witness's claims.
+Recant|Under pressure, the witness recanted his testimony.
+Reciprocate|She smiled at him, and he reciprocated.
+Reclusive|The reclusive author rarely left her house.
+Redundant|Saying "free gift" is redundant, since all gifts are free.
+Refute|The scientist refuted the claim with new data.
+Relegate|The old couch was relegated to the basement.
+Relentless|The relentless rain lasted for a week.
+Relinquish|The champion refused to relinquish her title.
+Remedial|He took a remedial math class over the summer.
+Reminisce|The old friends reminisced about their school days.
+Remorse|He felt deep remorse for lying to his best friend.
+Renounce|The prince renounced his claim to the throne.
+Renown|The chef won renown for her amazing desserts.
+Reprehensible|Bullying a younger child is reprehensible.
+Reprieve|The snow day gave us a reprieve from the big test.
+Reprimand|He received a reprimand from the principal for skipping class.
+Reproach|Her mother's look of reproach made her put the cookie back.
+Repudiate|The candidate repudiated the false rumors about her.
+Rescind|The school rescinded its decision to cancel the field trip.
+Resilient|Children are often remarkably resilient after setbacks.
+Resolute|She was resolute in her decision to run the marathon.
+Resplendent|The bride looked resplendent in her gown.
+Restive|The audience grew restive as the speech dragged on.
+Retract|The newspaper had to retract its false story.
+Revere|Many people revere Abraham Lincoln as a great leader.
+Rhetoric|The campaign was full of fiery rhetoric but few real plans.
+Ribald|The sailors sang ribald songs that made the old ladies blush.
+Rife|The old house was rife with mice.
+Rigorous|Astronauts go through rigorous training before a mission.
+Robust|The robust tomato plants survived the cold snap.
+Rogue|The rogue tricked travelers out of their money.
+Rudimentary|He has only a rudimentary knowledge of Spanish.
+Sagacious|The sagacious old owl gave the forest animals wise advice.
+Salient|The teacher listed the salient points of the chapter.
+Sanctimonious|His sanctimonious lectures about healthy eating annoyed everyone.
+Sanguine|Despite the rain, she remained sanguine about the picnic.
+Sardonic|He gave a sardonic laugh when told the bus would be late again.
+Satiate|The huge dinner satiated even the hungriest guests.
+Scanty|The scanty meal left us hungry an hour later.
+Scathing|The critic wrote a scathing review of the new restaurant.
+Scrupulous|She was scrupulous about citing every source in her paper.
+Scurrilous|The scurrilous rumor about the teacher spread quickly.
+Sedentary|A sedentary lifestyle can lead to health problems.
+Sedition|The rebels were arrested for sedition against the king.
+Serendipity|Finding a twenty-dollar bill in my old coat was pure serendipity.
+Servile|The servile assistant agreed with everything his boss said.
+Shrewd|A shrewd shopper waits for sales.
+Skeptic|As a skeptic, she wanted proof before believing in ghosts.
+Slander|Spreading lies about your classmate is slander.
+Sloth|His sloth kept him on the couch all weekend.
+Sly|The sly fox snuck into the henhouse.
+Sober|The sober news report described the flood damage.
+Solace|She found solace in music after her grandfather died.
+Solemn|The graduation ceremony was a solemn occasion.
+Solitude|He enjoyed the solitude of his early morning walks.
+Somber|The mood at the funeral was somber.
+Soothe|A lullaby helped soothe the crying baby.
+Sordid|The detective uncovered the sordid details of the crime.
+Spontaneous|We took a spontaneous road trip to the beach.
+Sporadic|There were sporadic showers throughout the day.
+Spurious|The ad made spurious claims about the product.
+Spurn|She spurned his offer to help as if it were an insult.
+Squander|Don't squander your allowance on candy.
+Stagnant|Mosquitoes breed in stagnant water.
+Staid|The staid old professor never cracked a smile.
+Static|The population of the town has remained static for years.
+Stealth|The cat approached the bird with stealth.
+Stoic|She remained stoic as the nurse gave her the shot.
+Strident|The coach's strident voice could be heard across the field.
+Stringent|The school has stringent rules about cell phones.
+Stupefy|The magician's final trick stupefied the audience.
+Subdue|Police managed to subdue the angry man.
+Subjective|Whether a movie is good is often subjective.
+Sublime|The view from the mountaintop was sublime.
+Submissive|The submissive dog rolled over to show its belly.
+Subside|We waited for the floodwaters to subside.
+Substantiate|Can you substantiate your claim with evidence?
+Subtle|There was a subtle hint of lemon in the cake.
+Succinct|Her succinct summary covered the main points in two sentences.
+Succumb|He finally succumbed to temptation and ate the whole pie.
+Sullen|The sullen teenager refused to speak at dinner.
+Sumptuous|The hotel served a sumptuous breakfast buffet.
+Superficial|The scratch on the car was only superficial.
+Supplant|Email has largely supplanted handwritten letters.
+Surreptitious|He took a surreptitious bite of cake before dinner.
+Susceptible|Young children are more susceptible to colds.
+Sycophant|The king surrounded himself with sycophants who praised everything he did.
+Synthesis|Her essay was a synthesis of ideas from three different books.
+Tacit|They had a tacit agreement not to mention the broken vase.
+Taciturn|The taciturn farmer answered every question with a nod.
+Tangential|His comment was tangential to the discussion.
+Tangible|The new playground was a tangible result of the fundraiser.
+Tantamount|Not answering the question was tantamount to admitting guilt.
+Tedious|Copying the dictionary by hand would be tedious.
+Temerity|He had the temerity to correct the professor in front of everyone.
+Tenable|Her argument was no longer tenable after the new facts came out.
+Tentative|We made tentative plans to meet on Saturday.
+Tenuous|The connection between the two events seemed tenuous.
+Terse|Her terse reply, "Fine," told me she was upset.
+Thrifty|A thrifty shopper, he bought most of his clothes secondhand.
+Timorous|The timorous rabbit hid at the slightest sound.
+Torpid|The bear was torpid after a long winter's sleep.
+Tout|The company touted its new phone as the best ever made.
+Tractable|The tractable pony was perfect for young riders.
+Tranquil|The lake was tranquil at dawn.
+Transient|Her bad mood was transient and gone by lunch.
+Trepidation|She opened the envelope with trepidation.
+Truculent|The truculent player argued with the referee all game.
+Tumultuous|The team received a tumultuous welcome home.
+Turbulent|The plane shook during the turbulent flight.
+Turpitude|The official was fired for moral turpitude.
+Tyranny|The people rose up against the king's tyranny.
+Unassuming|Despite her fame, the actress was modest and unassuming.
+Unbridled|The children ran into the park with unbridled joy.
+Uncanny|She has an uncanny ability to guess what I'm thinking.
+Undermine|Constant criticism can undermine a person's confidence.
+Unequivocal|Her answer was an unequivocal "yes."
+Unfathomable|The size of the universe is unfathomable.
+Unfeigned|Her unfeigned delight at the gift made him smile.
+Unprecedented|The team's unprecedented winning streak lasted 40 games.
+Unwitting|He was an unwitting accomplice who didn't know about the plan.
+Urbane|The urbane diplomat charmed everyone at the dinner.
+Usurp|The general tried to usurp the throne from the young king.
+Utilitarian|The kitchen was utilitarian, with plain steel counters and no decorations.
+Vacillate|She vacillated between pizza and tacos for twenty minutes.
+Vacuous|The reality show was full of vacuous conversations.
+Vagrant|The vagrant slept on a park bench.
+Validate|The experiment validated her hypothesis.
+Vanguard|The company was in the vanguard of electric car design.
+Vapid|The movie's vapid dialogue bored the audience.
+Vehement|He was vehement in his denial of the accusation.
+Venerate|In many cultures, people venerate their elders.
+Veracity|The detective questioned the veracity of the witness's story.
+Verbose|The verbose manual was hard to follow.
+Vestige|The old wall is the last vestige of the medieval castle.
+Vex|The puzzle vexed him for hours.
+Viable|Solar power is a viable alternative to coal.
+Vicarious|She got a vicarious thrill watching her son score the winning goal.
+Vigilant|Lifeguards must stay vigilant at all times.
+Vignette|The book is a series of vignettes about life in a small town.
+Vilify|The newspapers vilified the coach after the loss.
+Vindictive|The vindictive boy popped his sister's balloon to get back at her.
+Virtuoso|The young violin virtuoso played at Carnegie Hall.
+Visceral|She had a visceral fear of spiders.
+Vital|Water is vital to all living things.
+Vitriol|The online comments were full of vitriol.
+Vivacious|The vivacious host kept the party lively.
+Volatile|The stock market can be volatile.
+Voracious|She is a voracious reader who finishes a book every day.
+Wane|Interest in the show began to wane after the first season.
+Wary|Be wary of strangers who offer free gifts.
+Whimsical|The garden was full of whimsical sculptures.
+Wistful|She gave a wistful smile as she looked at old photos.
+Zeal|He tackled his chores with surprising zeal.
+Adjunct|The online course is an adjunct to the classroom lessons.
+Admonition|The teacher's admonition to study hard went unheeded.
+Allegory|Animal Farm is an allegory about power and politics.
+Anodyne|The speech was anodyne, offending no one but inspiring no one either.
+Apostate|The village shunned him as an apostate after he left the church.
+Appall|The amount of trash on the beach appalled the volunteers.
+Apposite|Her apposite quote fit the moment perfectly.
+Arbitrate|A neutral judge was hired to arbitrate the dispute.
+Ascertain|The detective tried to ascertain who had broken the window.
+Askance|The teacher looked askance at his excuse.
+Assiduous|Her assiduous practice made her the best pianist in school.
+Astringent|The critic's astringent comments stung the young author.
+Attenuate|The thick walls attenuate the noise from the street.
+Audible|Her whisper was barely audible.
+Augury|The farmers saw the early frost as an augury of a hard winter.
+Auxiliary|The hospital has an auxiliary generator for power outages.
+Avert|Quick thinking by the pilot averted a disaster.
+Avuncular|The avuncular coach gave each player friendly advice.
+Bedraggled|The bedraggled cat came in out of the storm.
+Begrudge|I don't begrudge her success; she worked hard for it.
+Beguile|The salesman beguiled customers with charm and false promises.
+Belittle|Don't belittle your brother's efforts just because he lost.
+Benediction|The priest gave a benediction at the end of the service.
+Berserk|The fans went berserk when their team won.
+Bifurcate|The river bifurcates into two streams near the town.
+Bilk|The scammer bilked elderly people out of their savings.
+Blight|The abandoned factory is a blight on the neighborhood.
+Boorish|His boorish behavior at dinner embarrassed his parents.
+Brusque|The busy clerk gave a brusque reply and turned away.
+Bucolic|They spent a bucolic summer on their grandparents' farm.
+Burly|The burly mover lifted the piano by himself.
+Capacious|Her capacious handbag held everything she needed.
+Carnage|The tornado left carnage across the county.
+Celestial|Stars and planets are celestial bodies.
+Censorious|The censorious critic found fault with every performance.
+Cerebral|Chess is a cerebral game that rewards careful thinking.
+Chimerical|His chimerical plan to build a castle in a week never got started.
+Churlish|It would be churlish to refuse such a kind gift.
+Circumlocution|Instead of saying no, the politician used endless circumlocution.
+Clamorous|The clamorous crowd demanded an encore.
+Cloying|The movie's cloying sweetness made me roll my eyes.
+Cogitate|She sat and cogitated on the math problem for an hour.
+Comely|The comely cottage was surrounded by roses.
+Commodious|The commodious living room easily held thirty guests.
+Compendium|The book is a compendium of facts about the ocean.
+Conflagration|The conflagration destroyed an entire city block.
+Connive|The two thieves connived to rob the bank.
+Consternation|To our consternation, the flight was canceled.
+Contingent|Our picnic is contingent on good weather.
+Contumacious|The contumacious witness refused to answer the judge's questions.
+Convalesce|She went home to convalesce after her surgery.
+Corpulent|The corpulent king could barely fit on his throne.
+Corrosive|Saltwater has a corrosive effect on metal.
+Countenance|The principal will not countenance bullying.
+Covert|The spy was sent on a covert mission.
+Craven|The craven soldier ran away from the battle.
+Credulity|The scam took advantage of people's credulity.
+Dank|The dank basement smelled of mold.
+Dauntless|The dauntless firefighter ran into the burning house.
+Debonair|The debonair actor tipped his hat and smiled.
+Decry|Environmental groups decried the plan to cut down the forest.
+Deferential|The new employee was deferential to her boss.
+Degrade|The insults were meant to degrade and humiliate him.
+Diaphanous|She wore a diaphanous scarf that fluttered in the breeze.
+Diatribe|He launched into a diatribe against modern music.
+Diffuse|The light was diffuse through the frosted glass.
+Dissipate|The fog began to dissipate as the sun rose.
+Distend|The balloon began to distend as he blew more air into it.
+Doleful|The puppy gave us a doleful look when we left.
+Dulcet|The singer's dulcet voice soothed the audience.
+Egalitarian|The club has an egalitarian rule: everyone gets one vote.
+Elegy|The poet wrote an elegy for her late father.
+Empirical|Scientists need empirical evidence from experiments.
+Encroach|The growing city began to encroach on the farmland.
+Endearing|The puppy's clumsy walk was endearing.
+Enigma|How the magician did the trick remains an enigma.
+Ardor|She spoke about saving the whales with great ardor.
+Assail|Critics assailed the new policy as unfair.
+Augment|He took a part-time job to augment his income.
+Auspicious|A sunny morning was an auspicious start to our vacation.
+Austerity|The monks lived a life of austerity.
+Autonomous|The company is testing autonomous cars that drive themselves.
+Avarice|The king's avarice led him to tax the poor heavily.
+Aversion|She has a strong aversion to spiders.
+Avid|He is an avid reader of mystery novels.
+Awry|Our plans went awry when the car broke down.
+Axiom|It is an axiom that two points determine a straight line.
+Baroque|The baroque church was filled with gold statues and swirling designs.
+Behoove|It would behoove you to study before the test.
+Beneficent|The beneficent donor paid for the new library.
+Bereft|After the fire, the family was bereft of all their belongings.
+Blasé|After ten trips to the zoo, the kids were blasé about the lions.
+Bombard|Fans bombarded the singer with questions.
+Brash|The brash young player boasted that he would win easily.
