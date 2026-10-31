@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#2f4a5c">
+<!-- page -->
+<title>Vocab Flashcards</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  /* Layout: set picker on top, one index card centered on a desk, tap to flip, counter beneath */
+  :root {
+    --desk: #2f4a5c;
+    --desk-ink: #dfe8ee;
+    --desk-muted: #9fb3c1;
+    --desk-raised: #3b5a6e;
+    --card: #fbfaf5;
+    --card-ink: #1f2a33;
+    --card-muted: #5d6b76;
+    --rule: #b9d3e6;
+    --margin: #d9534f;
+    --accent: #8fc3ea;
+    --display: "Young Serif", Georgia, "Times New Roman", serif;
+    --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --desk: #141d24; --desk-ink: #d5dee5; --desk-muted: #7f929f; --desk-raised: #1f2c36;
+      --card: #e9e6dc; --card-ink: #1c252c; --card-muted: #55626c;
+      --rule: #a8c0d2; --margin: #c4504c; --accent: #6fa8d6;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --desk: #141d24; --desk-ink: #d5dee5; --desk-muted: #7f929f; --desk-raised: #1f2c36;
+    --card: #e9e6dc; --card-ink: #1c252c; --card-muted: #55626c;
+    --rule: #a8c0d2; --margin: #c4504c; --accent: #6fa8d6;
+    color-scheme: dark;
+  }
+
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--desk);
+    color: var(--desk-ink);
+    font-family: var(--body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-block: 16px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .picker {
+    width: min(100%, 440px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .picker label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--desk-muted);
+  }
+  .picker select {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--desk-ink);
+    background: var(--desk-raised);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .scene {
+    width: min(100%, 440px);
+    aspect-ratio: 5 / 3.4;
+    max-width: 100%;
+    perspective: 1400px;
+  }
+  @media (max-width: 520px) and (orientation: portrait) {
+    .scene { aspect-ratio: 3 / 4; max-height: 62vh; }
+  }
+  /* Older iOS (before 15) has no aspect-ratio; give the card a fixed height */
+  @supports not (aspect-ratio: 1) {
+    .scene { height: 300px; }
+    @media (max-width: 520px) and (orientation: portrait) {
+      .scene { height: 60vh; }
+    }
+  }
+
+  /* A div, not a <button>: Safari flattens 3D transforms inside buttons */
+  .card {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    outline: none;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 0.6s cubic-bezier(0.3, 0.7, 0.25, 1);
+    transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.25, 1);
+    touch-action: manipulation;
+  }
+  .card.flipped { -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
+  .card:focus-visible .face { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+  .face {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 6px;
+    background: var(--card);
+    color: var(--card-ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 14px 30px rgba(0,0,0,.28);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* Front: plain card, word centered */
+  .front {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+  .word {
+    font-family: var(--display);
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+  .hint {
+    position: absolute;
+    bottom: 16px;
+    left: 0; right: 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--card-muted);
+  }
+
+  /* Back: ruled index card, word above the red header line */
+  .back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    padding: 18px 22px 22px;
+    background-image:
+      linear-gradient(var(--margin), var(--margin)),
+      repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px);
+    background-size: 100% 2px, 100% 100%;
+    background-position: 0 58px, 0 58px;
+    background-repeat: no-repeat, repeat;
+    background-color: var(--card);
+  }
+  .back-word {
+    font-family: var(--display);
+    font-size: 1.35rem;
+    min-height: 40px;
+    overflow-wrap: anywhere;
+  }
+  .def {
+    margin: 8px 0 0;
+    font-size: clamp(1.15rem, 5vw, 1.35rem);
+    line-height: 32px;
+  }
+
+  .status {
+    font-size: 0.85rem;
+    color: var(--desk-muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card { -webkit-transition: none; transition: none; }
+  }
+</style>
+<!-- /page -->
+</head>
+<body>
+<!-- page -->
+<div class="picker">
+  <label for="set">Words</label>
+  <select id="set"></select>
+</div>
+<div class="scene">
+  <div class="card" id="card" role="button" tabindex="0" aria-live="polite" aria-label="Flashcard">
+    <div class="face front">
+      <div class="word" id="front-word">Loading…</div>
+      <div class="hint">Tap to see definition</div>
+    </div>
+    <div class="face back">
+      <div class="back-word" id="back-word"></div>
+      <p class="def" id="def"></p>
+    </div>
+  </div>
+</div>
+<!-- Replaced by the script. If it stays, scripts aren't running (e.g. an iOS file preview). -->
+<div class="status" id="status">No words? This preview can't run the flashcards. Open the page in Safari or Chrome.</div>
+
+<!-- Show script errors on the page, since phones have no console -->
+<script>
+  window.onerror = function (msg, src, line) {
+    document.getElementById("status").textContent = "Error: " + msg + " (line " + line + ")";
+  };
+</script>
+
+<!-- Word lists are filled in from the .md lists by build-words.js -->
+<script>
+/* WORDS:BEGIN */
+var WORD_SETS = [{"name":"Day 1","words":[["Curtail","To reduce or cut short"],
+["Askance","With suspicion or disapproval"],
+["Rant","To speak loudly and angrily"],
+["Embezzle","To steal money placed in one's trust"],
+["Baffle","To confuse completely"],
+["Fortitude","Courage in pain or adversity"],
+["Avuncular","Kind and friendly toward a younger person"],
+["Burgeon","To grow or increase rapidly"],
+["Pretentious","Attempting to impress by exaggerating importance"],
+["Covert","Not displayed openly; secret"],
+["Ribald","Referring to sex in a humorous way"],
+["Paradox","A seemingly contradictory statement"]]},{"name":"Day 2","words":[["Deft","Neatly skillful"],
+["Dissent","Disagreement with a prevailing opinion"],
+["Legacy","Something handed down from the past"],
+["Explicit","Clearly stated"],
+["Banal","Boring from overuse; unoriginal"],
+["Abrogate","To repeal or do away with formally"],
+["Immutable","Unchanging over time"],
+["Castigate","To criticize severely"],
+["Fanatical","Filled with excessive enthusiasm"],
+["Renounce","To formally give up a belief"],
+["Comprehensive","Complete and including everything"],
+["Mandate","An official order to do something"]]},{"name":"Day 3","words":[["Contentious","Causing or likely to cause argument"],
+["Deplore","To feel strong disapproval of"],
+["Spurn","To reject with disdain"],
+["Unwitting","Not aware of the full implications"],
+["Obstreperous","Noisy and difficult to control"],
+["Enervate","To weaken or drain of energy"],
+["Languid","Lacking energy; slow"],
+["Loquacious","Very talkative"],
+["Inept","Having no skill; clumsy"],
+["Melancholy","A deep, persistent sadness"],
+["Dauntless","Showing fearlessness"],
+["Antagonize","To cause hostility in someone"]]},{"name":"Day 4","words":[["Impeccable","In accordance with the highest standards; flawless"],
+["Connive","To conspire to do something harmful"],
+["Predicament","A difficult, unpleasant situation"],
+["Notorious","Famous for something bad"],
+["Devout","Deeply religious or sincere"],
+["Corrosive","Tending to cause damage gradually"],
+["Debonair","Confident, stylish, and charming"],
+["Flourish","To grow or develop successfully"],
+["Utilitarian","Designed to be useful rather than attractive"],
+["Ambivalent","Having mixed or conflicting feelings"],
+["Impudent","Disrespectful and bold"],
+["Defunct","No longer existing or functioning"]]},{"name":"Day 5","words":[["Contrive","To create by clever planning"],
+["Palatable","Pleasant to taste or acceptable"],
+["Stagnant","Not flowing; inactive"],
+["Collusion","Secret cooperation for deceitful purposes"],
+["Irrevocable","Not able to be changed"],
+["Amiable","Friendly and pleasant in manner"],
+["Temerity","Excessive confidence; audacity"],
+["Fallacious","Based on a mistaken belief"],
+["Allay","To diminish fear or worry"],
+["Mores","The customs of a social group"],
+["Efface","To erase or make indistinct"],
+["Complacent","Self-satisfied and unconcerned"]]},{"name":"Day 6","words":[["Discrepancy","A lack of agreement between facts"],
+["Paradigm","A typical example or model"],
+["Dubious","Hesitant or doubtful"],
+["Rogue","A dishonest or unprincipled person"],
+["Belittle","To make someone seem less important"],
+["Implicit","Implied though not plainly stated"],
+["Discreet","Careful not to attract attention"],
+["Clandestine","Done secretively or illicitly"],
+["Belie","To give a false impression of"],
+["Conflagration","A large, destructive fire"],
+["Jovial","Cheerful and friendly"],
+["Truculent","Eager to argue; aggressively defiant"]]},{"name":"Day 7","words":[["Usurp","To take a position by force"],
+["Feasible","Possible to do easily"],
+["Cogent","Clear, logical, and convincing"],
+["Germane","Relevant to a subject"],
+["Belligerent","Hostile and aggressive"],
+["Appall","To greatly dismay"],
+["Verbose","Using more words than needed"],
+["Condone","To accept or allow behavior that is considered wrong"],
+["Palpable","Able to be touched or clearly observed"],
+["Raucous","Making a loud, harsh noise"],
+["Erratic","Not consistent; unpredictable"],
+["Corroborate","To confirm or support with evidence"]]},{"name":"Day 8","words":[["Disparate","Essentially different in kind"],
+["Lithe","Thin and graceful in movement"],
+["Cajole","To persuade through flattery"],
+["Begrudge","To envy someone's possession of"],
+["Diffuse","Spread over a wide area"],
+["Passive","Accepting without resistance"],
+["Allure","The quality of being attractive"],
+["Famished","Extremely hungry"],
+["Discredit","To damage the reputation of"],
+["Askew","Not in the correct position; crooked"],
+["Facetious","Treating serious things humorously"],
+["Panacea","A solution for all problems"]]},{"name":"Day 9","words":[["Apex","The highest point"],
+["Lethal","Sufficient to cause death"],
+["Gaunt","Lean and haggard"],
+["Egalitarian","Believing in equality for all"],
+["Candid","Truthful and straightforward"],
+["Stringent","Strict and precise"],
+["Craven","Contemptibly lacking courage"],
+["Tedious","Too long and dull"],
+["Accolade","An award or praise for achievement"],
+["Fabricate","To invent or create falsely"],
+["Preposterous","Ridiculous; absurd"],
+["Daunt","To discourage through intimidation"]]},{"name":"Day 10","words":[["Incorrigible","Unable to be reformed"],
+["Furtive","Attempting to avoid notice"],
+["Cryptic","Having a hidden or ambiguous meaning"],
+["Subjective","Based on personal opinion"],
+["Pedantic","Overly concerned with minor details"],
+["Obsequious","Excessively eager to please"],
+["Chastise","To punish or reprimand"],
+["Bedraggled","Dirty and disheveled"],
+["Assiduous","Showing great care and perseverance"],
+["Antipathy","A deep-seated feeling of dislike"],
+["Deface","To spoil the surface of"],
+["Prevalent","Widespread"]]},{"name":"Day 11","words":[["Transient","Lasting only a short time"],
+["Luminous","Giving off light; bright"],
+["Duplicity","Deceptiveness"],
+["Listless","Lacking energy or enthusiasm"],
+["Bereft","Deprived of or lacking something"],
+["Debilitate","To make someone or something weak"],
+["Reproach","To express disapproval of"],
+["Foible","A minor weakness in character"],
+["Obsolete","No longer produced or used"],
+["Chronic","Persisting for a long time"],
+["Placid","Calm and peaceful"],
+["Scrutinize","To examine closely and critically"]]},{"name":"Day 12","words":[["Pugnacious","Eager to argue or fight"],
+["Lament","To express grief or sorrow"],
+["Contingent","Dependent on certain circumstances"],
+["Venerate","To regard with great respect"],
+["Exploit","To use selfishly for one's own ends"],
+["Zealous","Having great energy for a cause"],
+["Zeal","Great energy in pursuit of a cause"],
+["Abridge","To shorten a text while keeping its main points"],
+["Lambaste","To criticize harshly"],
+["Malady","A disease or ailment"],
+["Malleable","Easily influenced or shaped"],
+["Insolent","Rude and disrespectful"]]},{"name":"Day 13","words":[["Impervious","Unable to be affected by something"],
+["Apprehend","To understand, or to arrest"],
+["Homogeneous","Of the same kind"],
+["Inhibit","To hinder or restrain"],
+["Sedition","Conduct inciting rebellion against authority"],
+["Diatribe","A forceful verbal attack"],
+["Forsake","To abandon"],
+["Vital","Absolutely necessary"],
+["Approbation","Approval or praise"],
+["Exasperate","To irritate intensely"],
+["Pithy","Concise and forcefully expressive"],
+["Sagacious","Having keen judgment; wise"]]},{"name":"Day 14","words":[["Brusque","Abrupt or offhand in manner"],
+["Avarice","Extreme greed for wealth"],
+["Querulous","Complaining in a whining manner"],
+["Meticulous","Showing great attention to detail"],
+["Abstain","To deliberately avoid or refrain from"],
+["Genial","Friendly and warm in manner"],
+["Rigorous","Extremely thorough and careful"],
+["Acumen","Keen insight; shrewdness"],
+["Strident","Loud and harsh"],
+["Exonerate","To clear from blame"],
+["Enmity","Hostility or hatred"],
+["Antiquated","Old-fashioned; outdated"]]},{"name":"Day 15","words":[["Inundate","To overwhelm with things to deal with"],
+["Marginal","Minor and insignificant"],
+["Precarious","Not securely held; uncertain"],
+["Prudent","Acting with care and good judgment"],
+["Interminable","Endless, or seemingly so"],
+["Lackadaisical","Lacking enthusiasm and determination"],
+["Lassitude","A state of weariness"],
+["Connoisseur","An expert judge in matters of taste"],
+["Abolish","To formally put an end to"],
+["Mitigate","To make less severe"],
+["Avid","Having great enthusiasm"],
+["Jeopardize","To put at risk"]]},{"name":"Day 16","words":[["Evanescent","Quickly fading from sight"],
+["Audible","Able to be heard"],
+["Clamorous","Making a loud noise"],
+["Conciliatory","Intended to appease or make peace"],
+["Aesthete","A person with deep appreciation of beauty"],
+["Gratuitous","Uncalled for; unwarranted"],
+["Ingenuous","Innocent and unsuspecting"],
+["Constrain","To limit or restrict"],
+["Cognizant","Having knowledge or awareness of something"],
+["Judicious","Having good judgment; sensible"],
+["Keen","Having sharp intellectual perception"],
+["Innate","Inborn; natural"]]},{"name":"Day 17","words":[["Acuity","Sharpness of thought or perception"],
+["Quiescent","In a state of rest; inactive"],
+["Wistful","Having a vague longing"],
+["Ubiquitous","Found everywhere"],
+["Adage","A traditional saying expressing wisdom"],
+["Hiatus","A pause or gap"],
+["Inane","Silly; lacking sense"],
+["Inveterate","Having a long-established habit"],
+["Enthrall","To captivate completely"],
+["Frugal","Economical; avoiding waste"],
+["Tangible","Perceptible by touch; real"],
+["Deleterious","Causing harm"]]},{"name":"Day 18","words":[["Eclectic","Deriving ideas from a broad range of sources"],
+["Ravage","To cause severe damage"],
+["Coalesce","To come together to form one mass"],
+["Paragon","A model of excellence"],
+["Taciturn","Reserved in speech"],
+["Ennui","Boredom from lack of occupation"],
+["Restive","Unable to keep still from impatience"],
+["Undermine","To weaken gradually"],
+["Harangue","A lengthy and aggressive speech"],
+["Demure","Reserved and modest"],
+["Synthesis","The combination of parts into a whole"],
+["Culminate","To reach a climax or conclusion"]]},{"name":"Day 19","words":[["Chimerical","Highly unrealistic; fanciful"],
+["Edify","To instruct or improve morally"],
+["Laconic","Using very few words"],
+["Opaque","Not transparent; hard to understand"],
+["Prodigal","Wastefully extravagant"],
+["Scanty","Insufficient in amount"],
+["Circumlocution","An indirect way of speaking"],
+["Eradicate","To destroy completely"],
+["Soothe","To calm or comfort"],
+["Insurgent","Rebelling against authority"],
+["Novel","New or unusual; not resembling anything before"],
+["Amenable","Open to suggestion; agreeable"]]},{"name":"Day 20","words":[["Sumptuous","Splendid and expensive-looking"],
+["Censorious","Severely critical"],
+["Congregate","To gather in a crowd"],
+["Painstaking","Done with great care and thoroughness"],
+["Chaotic","In a state of complete disorder"],
+["Bewilder","To confuse greatly"],
+["Parody","An imitation for comic effect"],
+["Provincial","Narrow in scope; unsophisticated"],
+["Dank","Unpleasantly damp"],
+["Deferential","Showing respect"],
+["Spontaneous","Done without planning"],
+["Immobile","Not moving or able to move"]]},{"name":"Day 21","words":[["Ominous","Giving the impression something bad will happen"],
+["Novice","A person new to a skill or activity"],
+["Tacit","Understood without being stated"],
+["Bombastic","High-sounding but with little meaning"],
+["Resolute","Admirably determined"],
+["Extraneous","Irrelevant or unnecessary"],
+["Diverge","To separate and go in different directions"],
+["Morbid","Characterized by unhealthy preoccupation with death"],
+["Aristocratic","Belonging to the highest social class"],
+["Anarchy","Absence of government or order"],
+["Commensurate","Corresponding in size or degree"],
+["Sloth","Laziness"]]},{"name":"Day 22","words":[["Esoteric","Intended for a small group with special knowledge"],
+["Diaphanous","Light and translucent"],
+["Coherent","Logical and consistent"],
+["Circuitous","Longer than the most direct way"],
+["Erudite","Having great knowledge from study"],
+["Endearing","Inspiring affection"],
+["Vagrant","A person without a home or job"],
+["Inevitable","Certain to happen; unavoidable"],
+["Impassive","Not displaying emotion"],
+["Auspicious","Showing signs of future success"],
+["Facade","A deceptive outward appearance"],
+["Hedonism","The pursuit of pleasure as life's purpose"]]},{"name":"Day 23","words":[["Manifest","Clear or obvious to the eye"],
+["Tangential","Only superficially relevant"],
+["Portent","A sign of something important about to happen"],
+["Deter","To discourage from acting"],
+["Embellish","To make something more attractive by adding extra detail"],
+["Austere","Severe or plain in manner/appearance"],
+["Nostalgic","Feeling sentimental longing for the past"],
+["Sullen","Bad-tempered and gloomy"],
+["Capitulate","To surrender or give in"],
+["Servile","Excessively submissive"],
+["Acrimony","Bitterness or harshness in speech/manner"],
+["Emaciated","Abnormally thin from illness"]]},{"name":"Day 24","words":[["Mettle","Courage and strength of character"],
+["Insatiable","Impossible to satisfy"],
+["Gravity","Seriousness or importance"],
+["Cliche","An overused phrase or idea"],
+["Credulous","Too ready to believe things"],
+["Boon","A benefit or advantage"],
+["Lurid","Vividly shocking or sensational"],
+["Dispel","To make a feeling disappear"],
+["Escalate","To increase rapidly"],
+["Moribund","In terminal decline; dying out"],
+["Forlorn","Pitifully sad and abandoned"],
+["Tenable","Able to be maintained against attack"]]},{"name":"Day 25","words":[["Timorous","Showing fear"],
+["Despot","A ruler with absolute power"],
+["Adroit","Clever or skillful, especially under pressure"],
+["Confound","To cause confusion or surprise"],
+["Cacophony","A harsh mixture of discordant sounds"],
+["Fluctuate","To rise and fall irregularly"],
+["Perplex","To confuse greatly"],
+["Garner","To gather or collect"],
+["Contrite","Feeling remorseful"],
+["Laud","To praise highly"],
+["Barrage","An overwhelming quantity of something"],
+["Aghast","Filled with horror or shock"]]},{"name":"Day 26","words":[["Obstinate","Stubbornly refusing to change"],
+["Myriad","A countless or extremely great number"],
+["Nadir","The lowest point"],
+["Fortuitous","Happening by chance, usually fortunately"],
+["Alacrity","Cheerful readiness or eagerness"],
+["Dilapidated","In a state of disrepair"],
+["Labyrinthine","Intricate and confusing"],
+["Endemic","Regularly found in a particular area"],
+["Adhere","To stick firmly; to follow a rule"],
+["Celerity","Swiftness of movement"],
+["Condescend","To act as if superior to others"],
+["Mollify","To calm or soothe"]]},{"name":"Day 27","words":[["Grandiloquent","Pompous or extravagant in language"],
+["Consternation","Anxiety or dismay"],
+["Animosity","Strong hostility"],
+["Adverse","Unfavorable or harmful"],
+["Recant","To withdraw a previously held belief"],
+["Oblivious","Not aware of what's happening"],
+["Deign","To condescend to do something"],
+["Antithesis","The exact opposite of something"],
+["Axiom","A statement accepted as true without proof"],
+["Precocious","Showing advanced ability at an early age"],
+["Vindicate","To clear from blame or suspicion"],
+["Itinerant","Traveling from place to place"]]},{"name":"Day 28","words":[["Haughty","Arrogantly superior and disdainful"],
+["Anecdote","A short, personal account of an incident"],
+["Indignant","Feeling anger at unfair treatment"],
+["Apposite","Apt in the circumstances"],
+["Depict","To portray in words or images"],
+["Encumber","To restrict or burden"],
+["Churlish","Rude in a mean-spirited way"],
+["Paltry","Small or meager"],
+["Apostate","A person who abandons their faith"],
+["Deluge","A severe flood; an overwhelming amount"],
+["Irate","Feeling anger"],
+["Garish","Obtrusively bright and showy"]]},{"name":"Day 29","words":[["Obtuse","Slow to understand; dull"],
+["Implacable","Unable to be appeased"],
+["Proliferate","To increase rapidly in number"],
+["Divulge","To reveal private information"],
+["Tout","To praise or recommend loudly"],
+["Disseminate","To spread information widely"],
+["Sober","Not drunk; serious in manner"],
+["Demean","To lower in dignity"],
+["Insular","Narrow-minded; isolated"],
+["Mercurial","Subject to sudden changes of mood"],
+["Corpulent","Fat; overweight"],
+["Cursory","Hasty and not thorough"]]},{"name":"Day 30","words":[["Antecedent","A thing that comes before another"],
+["Stoic","Enduring pain without complaint"],
+["Despondent","In low spirits from loss of hope"],
+["Diminutive","Small in size"],
+["Anodyne","Not likely to provoke dissent; inoffensive"],
+["Philanthropy","Promoting the welfare of others, especially through donations"],
+["Enumerate","To mention a number of things one by one"],
+["Supplant","To take the place of"],
+["Ostentatious","Showy; intended to impress"],
+["Static","Not moving or changing"],
+["Convalesce","To recover health after illness"],
+["Acquiesce","To accept or comply passively, without protest"]]},{"name":"Day 31","words":[["Tractable","Easy to control or influence"],
+["Digress","To depart from the main subject"],
+["Commodious","Spacious and comfortable"],
+["Empirical","Based on observation rather than theory"],
+["Latent","Existing but not yet developed"],
+["Punctilious","Showing great attention to detail"],
+["Defame","To damage the reputation of"],
+["Conciliate","To stop someone from being angry"],
+["Dichotomy","A division into two contrasting parts"],
+["Remedial","Intended to correct a deficiency"],
+["Docile","Ready to accept control; easily managed"],
+["Platitude","A remark used often, lacking original thought"]]},{"name":"Day 32","words":[["Vacuous","Lacking thought or intelligence"],
+["Ponderous","Slow and clumsy because of weight"],
+["Incongruous","Not in harmony; out of place"],
+["Elucidate","To make clear; explain"],
+["Capricious","Prone to sudden, unpredictable change"],
+["Guile","Sly or cunning intelligence"],
+["Disposition","A person's inherent qualities of character"],
+["Collaborate","To work jointly on an activity"],
+["Intrepid","Fearless and adventurous"],
+["Instigate","To bring about or initiate"],
+["Dissipate","To scatter and disappear"],
+["Malaise","A general feeling of discomfort"]]},{"name":"Day 33","words":[["Galvanize","To shock into action"],
+["Extricate","To free from a difficult situation"],
+["Disclose","To reveal information"],
+["Vestige","A trace of something that once existed"],
+["Arbitrary","Based on random choice, not reason"],
+["Eccentric","Unconventional and slightly strange"],
+["Lucid","Clear and easy to understand"],
+["Nonchalant","Casually calm; unconcerned"],
+["Expedite","To make something happen faster"],
+["Histrionic","Overly theatrical or dramatic"],
+["Integrity","Firm adherence to moral principles"],
+["Demur","To raise objections"]]},{"name":"Day 34","words":[["Garrulous","Excessively talkative"],
+["Indolent","Wanting to avoid activity; lazy"],
+["Liable","Responsible by law"],
+["Diligence","Careful and persistent effort"],
+["Rash","Acting without thinking"],
+["Dilatory","Slow to act"],
+["Carnage","Widespread slaughter or destruction"],
+["Clairvoyant","Having insight beyond normal perception"],
+["Discordant","Disagreeing or incongruous"],
+["Succumb","To fail to resist"],
+["Cumulative","Increasing by successive additions"],
+["Scurrilous","Making scandalous claims"]]},{"name":"Day 35","words":[["Aloof","Distant and uninvolved"],
+["Hindrance","An obstacle or impediment"],
+["Nuance","A subtle distinction"],
+["Pallid","Pale, especially from illness"],
+["Implicate","To show someone is involved in wrongdoing"],
+["Augury","A sign of what will happen in the future"],
+["Behoove","To be necessary or appropriate for"],
+["Plausible","Seeming reasonable or probable"],
+["Forestall","To prevent by acting first"],
+["Retract","To draw back a previous statement"],
+["Demagogue","A leader who exploits popular prejudices"],
+["Accost","To approach and address aggressively"]]},{"name":"Day 36","words":[["Plethora","An excessive amount"],
+["Quixotic","Extremely idealistic; unrealistic"],
+["Delineate","To describe precisely"],
+["Opportune","Well-chosen or particularly favorable"],
+["Deference","Respectful submission to another's wishes"],
+["Invigorate","To give strength or energy to"],
+["Subtle","Not obvious; delicate"],
+["Contumacious","Stubbornly disobedient"],
+["Circumspect","Wary and careful about consequences"],
+["Abnegation","Self-denial; renunciation"],
+["Whimsical","Playfully quaint or fanciful"],
+["Rebuff","To reject an offer"]]},{"name":"Day 37","words":[["Tumultuous","Marked by uproar and disorder"],
+["Petulant","Childishly irritable"],
+["Aesthetic","Concerned with beauty or artistic taste"],
+["Unfeigned","Genuine"],
+["Exemplify","To be a typical example of"],
+["Contempt","A feeling of disdain"],
+["Ludicrous","So absurd as to be laughable"],
+["Dearth","A scarcity or lack"],
+["Rhetoric","The art of persuasive speaking or writing"],
+["Cosmopolitan","Familiar with many countries and cultures"],
+["Acerbic","Sharp and forthright in speech"],
+["Prodigious","Remarkably great in size or extent"]]},{"name":"Day 38","words":[["Implausible","Not credible"],
+["Concede","To admit something is true"],
+["Arcane","Known only to a few; mysterious"],
+["Flaunt","To display ostentatiously"],
+["Fathom","To understand after much thought"],
+["Credence","Belief or acceptance as true"],
+["Ascertain","To find out for certain"],
+["Peripheral","Of minor relevance"],
+["Gusto","Enjoyment shown in doing something"],
+["Reprieve","A temporary relief from danger"],
+["Aggrandize","To make something appear greater than it is"],
+["Libel","A published false statement damaging reputation"]]},{"name":"Day 39","words":[["Imperial","Relating to an empire"],
+["Intrinsic","Belonging naturally; essential"],
+["Hypothetical","Based on a suggested idea, not confirmed"],
+["Negligent","Failing to take proper care"],
+["Blasé","Unconcerned; indifferent from familiarity"],
+["Fractious","Irritable and quarrelsome"],
+["Rebuke","To express sharp disapproval"],
+["Languish","To lose vigor gradually"],
+["Euphemism","A mild expression substituted for a harsh one"],
+["Enigmatic","Mysterious and difficult to interpret"],
+["Robust","Strong and healthy"],
+["Brazen","Bold and without shame"]]},{"name":"Day 40","words":[["Quell","To put an end to; suppress"],
+["Inexorable","Impossible to stop or prevent"],
+["Nemesis","A long-standing rival; downfall"],
+["Espouse","To adopt or support a cause"],
+["Caucus","A meeting of members of a political group"],
+["Debase","To lower in quality or value"],
+["Coerce","To persuade by force or threat"],
+["Apprehensive","Anxious or fearful about the future"],
+["Accentuate","To make more noticeable"],
+["Affluent","Having great wealth"],
+["Pristine","In original, unspoiled condition"],
+["Unequivocal","Leaving no doubt; clear"]]},{"name":"Day 41","words":[["Humility","The quality of being modest"],
+["Ironic","Happening in a way contrary to expectation"],
+["Aggregate","A whole formed by combining parts"],
+["Subdue","To overcome or bring under control"],
+["Ardent","Enthusiastic or passionate"],
+["Degrade","To treat with disrespect"],
+["Prosaic","Lacking imagination; dull"],
+["Unassuming","Not pretentious or arrogant"],
+["Paucity","A scarcity or lack"],
+["Egregious","Outstandingly bad"],
+["Fallible","Capable of making mistakes"],
+["Scrupulous","Diligent and extremely attentive"]]},{"name":"Day 42","words":[["Benediction","A blessing"],
+["Obscure","Not well known; unclear"],
+["Grievous","Very severe or serious"],
+["Relinquish","To give up a right"],
+["Opulent","Luxurious and lavish"],
+["Harbinger","A sign that something is about to happen"],
+["Vigilant","Keeping careful watch for danger"],
+["Forthright","Direct and outspoken"],
+["Heresy","Belief contrary to accepted doctrine"],
+["Abominable","Causing moral revulsion"],
+["Dissonance","Lack of harmony"],
+["Turbulent","Characterized by conflict; unstable"]]},{"name":"Day 43","words":[["Devious","Showing cunning deceitfulness"],
+["Vehement","Showing strong feeling"],
+["Berserk","Out of control with anger"],
+["Detrimental","Harmful"],
+["Figurative","Based on metaphor"],
+["Renown","Fame and respect"],
+["Cerebral","Relating to intellect rather than emotion"],
+["Fervent","Having or showing passionate intensity"],
+["Naive","Lacking experience or sophistication"],
+["Adulterate","To make impure by adding inferior material"],
+["Anachronism","Something out of its proper time period"],
+["Ambiguous","Open to more than one interpretation"]]},{"name":"Day 44","words":[["Perfunctory","Done with minimal effort or reflection"],
+["Alienate","To cause someone to feel isolated"],
+["Brash","Self-assertive in a rude way"],
+["Exacerbate","To make a problem worse"],
+["Agile","Able to move quickly and easily"],
+["Vex","To make someone annoyed"],
+["Calamity","A disastrous event"],
+["Attenuate","To reduce in force or value"],
+["Feign","To pretend to feel something"],
+["Sycophant","A person who flatters for self-gain"],
+["Propriety","Correctness of behavior"],
+["Allege","To claim without proof"]]},{"name":"Day 45","words":[["Compelling","Evoking interest in a powerful way"],
+["Qualm","A misgiving about an action"],
+["Apocryphal","Of doubtful authenticity, widely circulated as true"],
+["Insubordinate","Defiant of authority"],
+["Reciprocate","To respond in kind"],
+["Unprecedented","Never done or known before"],
+["Partisan","A strong supporter of a cause"],
+["Augment","To make something greater"],
+["Iconoclast","One who attacks cherished beliefs"],
+["Earnest","Sincere and serious in intention"],
+["Compendium","A collection of concise information"],
+["Articulate","Able to express ideas clearly"]]},{"name":"Day 46","words":[["Recalcitrant","Having an obstinately uncooperative attitude"],
+["Inquisitive","Curious; eager for knowledge"],
+["Impartial","Treating all sides equally; unbiased"],
+["Pariah","An outcast"],
+["Pernicious","Having a harmful effect gradually"],
+["Distraught","Deeply upset"],
+["Rancor","Bitterness or resentfulness"],
+["Discord","Disagreement or conflict"],
+["Ancillary","Providing support; subordinate"],
+["Eloquent","Fluent and persuasive in speech"],
+["Illicit","Forbidden by law"],
+["Cogitate","To think deeply"]]},{"name":"Day 47","words":[["Aversion","A strong dislike"],
+["Foment","To instigate trouble"],
+["Sanctimonious","Making a show of being morally superior"],
+["Incessant","Continuing without pause"],
+["Credulity","Too great a readiness to believe things"],
+["Sedentary","Involving much sitting; inactive"],
+["Convoluted","Extremely complex or intricate"],
+["Altercation","A noisy argument or dispute"],
+["Abash","To embarrass or make ashamed"],
+["Foreboding","A feeling that something bad will happen"],
+["Lavish","Sumptuously rich or luxurious"],
+["Catharsis","Release of strong emotions"]]},{"name":"Day 48","words":[["Indifferent","Having no particular interest or concern"],
+["Squander","To waste resources carelessly"],
+["Spurious","Not genuine; false"],
+["Admonish","To warn or reprimand firmly"],
+["Ascetic","Practicing severe self-discipline"],
+["Arbiter","One who settles a dispute"],
+["Diligent","Showing careful, persistent effort"],
+["Accrue","To accumulate over time"],
+["Dogmatic","Inclined to lay down principles as undeniably true"],
+["Epitome","A perfect example of a quality"],
+["Fruitless","Unproductive; unsuccessful"],
+["Auxiliary","Providing supplementary support"]]},{"name":"Day 49","words":[["Vacillate","To waver between opinions"],
+["Unbridled","Uncontrolled; unrestrained"],
+["Adulation","Excessive praise or flattery"],
+["Allude","To suggest or refer to indirectly"],
+["Annex","To add or attach, often territory"],
+["Somber","Dark or dull; serious"],
+["Affectation","Artificial behavior meant to impress"],
+["Engender","To cause or give rise to"],
+["Odious","Extremely unpleasant"],
+["Emulate","To imitate in order to equal or surpass"],
+["Bequeath","To leave property in a will"],
+["Relegate","To consign to a lower position"]]},{"name":"Day 50","words":[["Chicanery","Deception through trickery"],
+["Propensity","An inclination toward a behavior"],
+["Alloy","A mixture; also, to weaken by mixing"],
+["Immaculate","Perfectly clean; without flaw"],
+["Marred","Spoiled in appearance or quality"],
+["Austerity","Extreme simplicity or self-discipline"],
+["Pensive","Deeply thoughtful"],
+["Largesse","Generosity in giving"],
+["Grim","Forbidding or uninviting"],
+["Blatant","Completely obvious in an offensive way"],
+["Boisterous","Noisy, energetic, and cheerful"],
+["Assail","To attack physically or verbally"]]},{"name":"Day 51","words":[["Beseech","To ask urgently and fervently"],
+["Convey","To communicate an idea"],
+["Beneficent","Doing good; charitable"],
+["Parch","To make extremely dry"],
+["Distend","To swell due to pressure"],
+["Quip","A witty remark"],
+["Arrogant","Having an exaggerated sense of importance"],
+["Perceptive","Having keen insight"],
+["Burly","Large and strong"],
+["Brittle","Hard but easily broken"],
+["Compound","To make a problem worse"],
+["Sanguine","Optimistic in a difficult situation"]]},{"name":"Day 52","words":[["Abscond","To leave hurriedly and secretly"],
+["Jocular","Fond of joking"],
+["Eminent","Famous and respected"],
+["Resplendent","Attractive and impressive through splendor"],
+["Jubilant","Feeling or expressing great happiness"],
+["Quandary","A state of uncertainty"],
+["Slander","A false spoken statement damaging reputation"],
+["Fawning","Displaying exaggerated flattery"],
+["Illusory","Based on an illusion; not real"],
+["Exult","To show great happiness"],
+["Intervene","To come between to prevent something"],
+["Ferocity","Savage fierceness"]]},{"name":"Day 53","words":[["Glib","Fluent but insincere"],
+["Inadvertent","Unintentional"],
+["Satiate","To satisfy fully"],
+["Euphoria","A feeling of intense excitement"],
+["Jargon","Special words used by a particular group"],
+["Reminisce","To recall past experiences"],
+["Pragmatic","Dealing with things sensibly and practically"],
+["Ignominious","Deserving or causing public disgrace"],
+["Solemn","Formal and dignified"],
+["Dissemble","To conceal one's true motives"],
+["Derivative","Imitative; not original"],
+["Gingerly","In a careful, cautious manner"]]},{"name":"Day 54","words":[["Tentative","Not certain or fixed"],
+["Nefarious","Wicked or criminal"],
+["Vitriol","Cruel and bitter criticism"],
+["Adamant","Refusing to be persuaded; unyielding"],
+["Copious","Abundant in quantity"],
+["Decimate","To destroy a large part of"],
+["Innocuous","Not harmful or offensive"],
+["Viable","Capable of working successfully"],
+["Urbane","Suave and refined in manner"],
+["Dormant","Temporarily inactive"],
+["Inclement","Unpleasantly cold or wet (weather)"],
+["Consensus","General agreement"]]},{"name":"Day 55","words":[["Benign","Gentle and kindly; not harmful"],
+["Belabor","To discuss or argue in excessive detail"],
+["Addle","To confuse or muddle"],
+["Mirth","Amusement, especially expressed in laughter"],
+["Bravado","A bold manner intended to impress"],
+["Sardonic","Mocking in a bitter way"],
+["Indomitable","Impossible to subdue"],
+["Lucrative","Producing a great deal of profit"],
+["Covet","To yearn to possess something"],
+["Pessimist","One who expects the worst"],
+["Diffident","Shy and lacking self-confidence"],
+["Impasse","A situation with no apparent solution"]]},{"name":"Day 56","words":[["Discrete","Individually separate and distinct"],
+["Bias","A prejudice in favor of or against"],
+["Reprehensible","Deserving strong condemnation"],
+["Intricate","Very complicated or detailed"],
+["Poignant","Evoking a keen sense of sadness"],
+["Reprimand","A formal expression of disapproval"],
+["Abhor","To regard with disgust and hatred"],
+["Circumvent","To find a way around an obstacle"],
+["Superfluous","More than needed; unnecessary"],
+["Solitude","The state of being alone"],
+["Dexterity","Skill in physical movement"],
+["Disdain","A feeling of contempt for someone or something"]]},{"name":"Day 57","words":[["Concise","Brief and clear in expression"],
+["Proclivity","A tendency to a particular trait"],
+["Pervasive","Spreading widely through something"],
+["Lull","A temporary period of quiet"],
+["Cynical","Distrustful of human sincerity"],
+["Vindictive","Having a strong desire for revenge"],
+["Overt","Done openly; not hidden"],
+["Permeate","To spread through something"],
+["Scathing","Witheringly critical"],
+["Bane","A cause of great distress or annoyance"],
+["Baroque","Highly ornate and extravagant in style"],
+["Decorum","Behavior in good taste"]]},{"name":"Day 58","words":[["Equanimity","Calmness, especially in difficult situations"],
+["Destitute","Extremely poor"],
+["Invidious","Likely to arouse resentment"],
+["Repudiate","To refuse to accept"],
+["Debacle","A sudden, humiliating failure"],
+["Conspicuous","Easily noticed; attracting attention"],
+["Delude","To deceive oneself or others"],
+["Abject","Experienced to the maximum degree; utterly hopeless"],
+["Indelible","Unable to be erased"],
+["Mercenary","Motivated solely by financial gain"],
+["Flippant","Not showing serious thought"],
+["Ineffable","Too great to be expressed in words"]]},{"name":"Day 59","words":[["Revere","To feel deep respect for"],
+["Tranquil","Calm and peaceful"],
+["Bombard","To attack with repeated force"],
+["Fickle","Changing frequently; not reliable"],
+["Beleaguer","To cause persistent trouble for"],
+["Brevity","Concise and exact use of words"],
+["Frivolous","Not having serious purpose"],
+["Sublime","Of great excellence or beauty"],
+["Adept","Very skilled or proficient"],
+["Parsimonious","Unwilling to spend money"],
+["Turpitude","Depraved or wicked behavior"],
+["Onerous","Involving a heavy burden"]]},{"name":"Day 60","words":[["Malinger","To exaggerate illness to avoid work"],
+["Effrontery","Insolent boldness"],
+["Pious","Devoutly religious"],
+["Aplomb","Self-confidence and composure"],
+["Imperious","Assuming authority without justification"],
+["Disgruntled","Angry or dissatisfied"],
+["Refute","To prove a statement wrong"],
+["Apathy","Lack of interest or concern"],
+["Ornate","Elaborately decorated"],
+["Subside","To become less intense"],
+["Captivate","To attract and hold the attention of"],
+["Chagrin","Annoyance or distress from failure"]]},{"name":"Day 61","words":[["Prolific","Producing much or many"],
+["Hyperbole","Exaggerated statements not meant literally"],
+["Vivacious","Attractively lively and animated"],
+["Sporadic","Occurring only occasionally"],
+["Derogatory","Expressing contempt"],
+["Vilify","To speak ill of"],
+["Relentless","Unceasingly intense"],
+["Audacious","Showing a willingness to take bold risks"],
+["Autonomous","Independent; self-governing"],
+["Hegemony","Dominance over others"],
+["Ignoble","Not honorable; base"],
+["Caustic","Sarcastic in a biting or hurtful way"]]},{"name":"Day 62","words":[["Infamous","Well known for a bad reason"],
+["Submissive","Ready to comply with others"],
+["Archaic","Very old or old-fashioned"],
+["Fictitious","Not real; invented"],
+["Maverick","An independent-minded person"],
+["Magnanimous","Generous in forgiving"],
+["Intransigent","Refusing to change one's views"],
+["Deride","To express contempt for; to mock"],
+["Convivial","Friendly and lively"],
+["Clamor","A loud confused noise"],
+["Ostracize","To exclude from a group"],
+["Admonition","A warning or reprimand"]]},{"name":"Day 63","words":[["Terse","Sparing in words; abrupt"],
+["Depose","To remove from power"],
+["Besiege","To surround with armed forces; overwhelm"],
+["Staid","Sedate and respectable"],
+["Lethargic","Sluggish and lacking energy"],
+["Charlatan","A person falsely claiming knowledge"],
+["Countenance","To approve or tolerate"],
+["Evasive","Tending to avoid commitment"],
+["Gregarious","Fond of company; sociable"],
+["Consolation","Comfort after loss or disappointment"],
+["Veracity","Conformity to truth"],
+["Skeptic","A person inclined to question claims"]]},{"name":"Day 64","words":[["Arid","Extremely dry; lacking interest"],
+["Anomaly","Something that deviates from the norm"],
+["Bilk","To cheat someone out of money"],
+["Volatile","Liable to change rapidly and unpredictably"],
+["Bolster","To support or strengthen"],
+["Trivial","Of little value or importance"],
+["Tyranny","Cruel and oppressive rule"],
+["Salient","Most noticeable or important"],
+["Trepidation","A feeling of fear about something"],
+["Litigious","Prone to engage in lawsuits"],
+["Capacious","Having a lot of space"],
+["Adjunct","Something added as a supplement"]]},{"name":"Day 65","words":[["Cower","To crouch in fear"],
+["Didactic","Intended to teach"],
+["Rudimentary","Basic or fundamental"],
+["Balk","To hesitate or refuse to proceed"],
+["Equivocal","Open to more than one interpretation"],
+["Sordid","Involving immoral acts; dirty"],
+["Complement","Something that completes or enhances"],
+["Appease","To pacify by granting demands"],
+["Insipid","Lacking flavor or interest"],
+["Intimidate","To frighten into submission"],
+["Prudish","Easily shocked by matters of propriety"],
+["Resilient","Able to recover quickly from difficulties"]]},{"name":"Day 66","words":[["Profound","Very great or intense"],
+["Abstruse","Difficult to understand; obscure"],
+["Alleviate","To make suffering or a problem less severe"],
+["Bemused","Confused or puzzled"],
+["Cloying","Excessively sweet or sentimental"],
+["Incredulous","Unwilling to believe"],
+["Ameliorate","To make a bad situation better"],
+["Accede","To agree to a demand"],
+["Intractable","Hard to control or deal with"],
+["Denounce","To publicly condemn"],
+["Deliberate","Done consciously and intentionally"],
+["Ingenious","Clever, original, and inventive"]]},{"name":"Day 67","words":[["Callous","Insensitive to others' feelings"],
+["Intangible","Unable to be touched; not concrete"],
+["Conundrum","A confusing and difficult problem"],
+["Cumbersome","Difficult to handle due to size"],
+["Culpable","Deserving blame"],
+["Burnish","To polish until smooth and shiny"],
+["Elated","Extremely happy and excited"],
+["Mediocre","Of only average quality"],
+["Astringent","Severe or sharp"],
+["Conventional","Based on common practice"],
+["Ebullient","Cheerful and full of energy"],
+["Rapport","A close, harmonious relationship"]]},{"name":"Day 68","words":[["Inert","Lacking vigor or activity"],
+["Thrifty","Careful with money"],
+["Elicit","To evoke a response"],
+["Clemency","Mercy; leniency"],
+["Tantamount","Equivalent in effect"],
+["Fervor","Intense and passionate feeling"],
+["Wane","To decrease in size or strength"],
+["Disparage","To speak of in a negative, belittling way"],
+["Aptitude","Natural ability or talent"],
+["Blight","A thing that damages or spoils"],
+["Rife","Widespread; full of"],
+["Blithe","Showing a casual lack of concern"]]},{"name":"Day 69","words":[["Morose","Sullen and ill-tempered"],
+["Vanguard","The leading group in a trend"],
+["Assuage","To make an unpleasant feeling less intense"],
+["Tenuous","Very weak or slight"],
+["Polarize","To cause division into sharply contrasting groups"],
+["Gullible","Easily deceived or tricked"],
+["Wary","Feeling cautious about possible danger"],
+["Altruistic","Showing selfless concern for others"],
+["Hackneyed","Overused and unoriginal"],
+["Advocate","To publicly support a cause"],
+["Disheveled","Untidy; disordered"],
+["Amble","To walk at a slow, relaxed pace"]]},{"name":"Day 70","words":[["Commend","To praise formally"],
+["Obfuscate","To make unclear or confusing"],
+["Enigma","Something mysterious or puzzling"],
+["Quash","To reject or void"],
+["Sly","Having cunning"],
+["Compassion","Sympathetic concern for others' suffering"],
+["Bucolic","Relating to pleasant country life"],
+["Impetuous","Acting quickly without thought"],
+["Compliant","Disposed to agree with others"],
+["Arbitrate","To act as an official to settle a dispute"],
+["Irascible","Easily provoked to anger"],
+["Buttress","To support or reinforce"]]},{"name":"Day 71","words":[["Visceral","Relating to deep inward feelings"],
+["Abysmal","Extremely bad"],
+["Hierarchy","A system of ranking"],
+["Impromptu","Done without preparation"],
+["Flagrant","Conspicuously or shockingly offensive"],
+["Felicitous","Well-chosen for a particular occasion"],
+["Fastidious","Very attentive to detail; hard to please"],
+["Surreptitious","Kept secret because improper"],
+["Hinder","To delay or obstruct"],
+["Voracious","Having a very eager approach to an activity"],
+["Elegy","A mournful poem for the dead"],
+["Monotonous","Dull from lack of variety"]]},{"name":"Day 72","words":[["Candor","Honesty and openness"],
+["Encroach","To intrude gradually on rights or territory"],
+["Remorse","Deep regret for wrongdoing"],
+["Decry","To publicly denounce"],
+["Enhance","To intensify or improve"],
+["Affable","Friendly and easy to talk to"],
+["Abound","To exist in large numbers"],
+["Forbearance","Patient self-control"],
+["Succinct","Briefly and clearly expressed"],
+["Doleful","Expressing sorrow"],
+["Amorphous","Without clear shape or form"],
+["Abate","To reduce in intensity or amount"]]},{"name":"Day 73","words":[["Distill","To extract the essential meaning"],
+["Effervescent","Vivacious and enthusiastic"],
+["Torpid","Mentally or physically inactive"],
+["Unfathomable","Impossible to understand"],
+["Congenial","Pleasant and friendly"],
+["Celestial","Positioned in the sky"],
+["Vapid","Offering nothing stimulating; dull"],
+["Serendipity","Finding good things by chance"],
+["Susceptible","Likely to be influenced by something"],
+["Censure","Strong criticism or disapproval"],
+["Formidable","Inspiring fear through impressiveness"],
+["Imperceptible","Too slight to be noticed"]]},{"name":"Day 74","words":[["Amalgamate","To combine into one unified whole"],
+["Stealth","Cautious, secretive action"],
+["Insolvent","Unable to pay debts"],
+["Virtuoso","A person highly skilled in an art"],
+["Benevolent","Well-meaning and kindly"],
+["Superficial","Concerned only with the obvious"],
+["Validate","To confirm the validity of"],
+["Bland","Lacking strong flavor or interest"],
+["Imminent","About to happen"],
+["Entice","To attract by offering pleasure"],
+["Officious","Assertive in an annoyingly domineering way"],
+["Placate","To make someone less angry"]]},{"name":"Day 75","words":[["Uncanny","Strange or mysterious"],
+["Vicarious","Experienced through another person's actions"],
+["Reticent","Reserved; reluctant to speak"],
+["Abdicate","To give up a position of power or responsibility"],
+["Arduous","Requiring great effort; difficult"],
+["Credible","Able to be believed"],
+["Ardor","Enthusiasm or passion"],
+["Misanthrope","A person who dislikes humankind"],
+["Idiosyncrasy","A peculiar characteristic"],
+["Provoke","To stimulate a reaction"],
+["Rebut","To argue to prove something false"],
+["Extol","To praise enthusiastically"]]},{"name":"Day 76","words":[["Elusive","Difficult to find or catch"],
+["Ingratiate","To bring oneself into favor"],
+["Pungent","Having a sharply strong smell or taste"],
+["Substantiate","To provide evidence to support"],
+["Insidious","Proceeding harmfully but subtly"],
+["Beguile","To charm in a deceptive way"],
+["Abeyance","A state of temporary suspension"],
+["Expedient","Convenient though possibly improper"],
+["Berate","To scold angrily"],
+["Shrewd","Having sharp judgment"],
+["Dulcet","Sweet and soothing"],
+["Abrasive","Harsh or rough in manner"]]},{"name":"Day 77","words":[["Comely","Pleasant to look at"],
+["Deplete","To use up the supply of"],
+["Criteria","Standards for judgment"],
+["Levity","Humor in a serious situation"],
+["Obdurate","Stubbornly refusing to change"],
+["Bifurcate","To divide into two branches"],
+["Denigrate","To criticize unfairly"],
+["Profuse","Abundant; plentiful"],
+["Reclusive","Avoiding the company of others"],
+["Compromise","A settlement reached by mutual concession"],
+["Ephemeral","Lasting for a very short time"],
+["Tenacious","Persistent in holding to something"]]},{"name":"Day 78","words":[["Vignette","A brief evocative description"],
+["Awry","Away from the expected course"],
+["Stupefy","To astonish and shock"],
+["Neophyte","A beginner"],
+["Broach","To raise a sensitive subject for discussion"],
+["Disconcert","To disturb the composure of"],
+["Blasphemy","Irreverent speech about sacred things"],
+["Bogus","Not genuine; fake"],
+["Redundant","Not needed; superfluous"],
+["Avert","To prevent something undesirable"],
+["Boorish","Rude and unrefined"],
+["Rescind","To revoke or cancel"]]},{"name":"Day 79","words":[["Bluster","To talk in a loud, aggressive way"],
+["Affinity","A natural liking or connection"],
+["Aberrant","Departing from what is normal or expected"],
+["Incognito","With one's identity disguised"],
+["Allegory","A story with a hidden symbolic meaning"],
+["Discern","To perceive or recognize clearly"],
+["Concur","To agree"],
+["Absolve","To free from guilt or blame"],
+["Exuberant","Full of energy, excitement, and enthusiasm"],
+["Deprecate","To express disapproval of"],
+["Luxuriant","Rich and profuse in growth"],
+["Mundane","Lacking excitement; ordinary"]]},{"name":"Day 80","words":[["Exemplary","Serving as a desirable model"],
+["Catalyst","Something that provokes change"],
+["Solace","Comfort in a time of distress"],
+["Pathos","A quality that evokes pity"],
+["Analogous","Comparable in certain respects"],
+["Malevolent","Having or showing a wish to do harm"],
+["Malice","The intention to harm others"],
+["Oracle","A person considered a source of wisdom"],
+["Coagulate","To change from liquid to solid"],
+["Erroneous","Wrong; incorrect"]]}];
+/* WORDS:END */
+</script>
+<script>
+  // Plain ES5 so it runs on older iPhones and iPads.
+  function $(id) { return document.getElementById(id); }
+  var card = $("card");
+  var picker = $("set");
+
+  var ALL = [];
+  for (var s = 0; s < WORD_SETS.length; s++) ALL = ALL.concat(WORD_SETS[s].words);
+
+  // Selector: "all" or the index of a day set. The chosen set repeats, reshuffled each pass.
+  picker.options.add(new Option("All days (" + ALL.length + " words)", "all"));
+  for (var d = 0; d < WORD_SETS.length; d++) {
+    picker.options.add(new Option(WORD_SETS[d].name + " (" + WORD_SETS[d].words.length + ")", String(d)));
+  }
+
+  var words = ALL;
+  var deck = [];
+  var current = null;
+  var shown = 0;
+  var pass = 0;
+  var flipped = false;
+  var busy = false;
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  // Draw without repeats until every word in the set has been seen, then start
+  // a new pass. Avoid showing the same word twice in a row across passes.
+  function nextWord() {
+    if (deck.length === 0) {
+      deck = shuffle(words.slice());
+      var last = deck.length - 1;
+      if (current && last > 0 && deck[last] === current) {
+        deck[last] = deck[0]; deck[0] = current;
+      }
+      shown = 0;
+      pass++;
+    }
+    shown++;
+    return deck.pop();
+  }
+
+  function setFront(w) {
+    $("front-word").textContent = w[0];
+    $("status").textContent = "Pass " + pass + " \u00b7 " + shown + " of " + words.length;
+  }
+  function setBack(w) {
+    $("back-word").textContent = w[0];
+    $("def").textContent = w[1];
+  }
+
+  function startSet(value) {
+    words = value === "all" || !WORD_SETS[value] ? ALL : WORD_SETS[value].words;
+    deck = [];
+    current = null;
+    pass = 0;
+    flipped = false;
+    busy = false;
+    card.className = "card";
+    current = nextWord();
+    setFront(current);
+    setBack(current);
+  }
+
+  card.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
+  });
+
+  card.addEventListener("click", function () {
+    if (busy) return;
+    if (!flipped) {
+      flipped = true;
+      card.className = "card flipped";
+      return;
+    }
+    // Flip back to the front with a new word. The front face is hidden while
+    // flipped, so it can change now; the back keeps its text until it turns away.
+    var w = nextWord();
+    current = w;
+    setFront(w);
+    flipped = false;
+    busy = true;
+    card.className = "card";
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(function () { setBack(w); busy = false; }, reduce ? 0 : 600);
+  });
+
+  picker.addEventListener("change", function () {
+    try { localStorage.setItem("vocab-set", picker.value); } catch (e) {}
+    startSet(picker.value);
+    picker.blur();
+  });
+
+  var saved = "all";
+  try { saved = localStorage.getItem("vocab-set") || "all"; } catch (e) {}
+  if (saved !== "all" && !WORD_SETS[saved]) saved = "all";
+  picker.value = saved;
+  startSet(saved);
+</script>
+<!-- /page -->
+</body>
+</html>

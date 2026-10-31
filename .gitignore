@@ -1,0 +1,2 @@
+# Word list notes stay private; build-words.js copies the words into index.html
+*.md
