@@ -50,28 +50,31 @@ LEARNED_STREAK=2
 
 ## 4. Start the container
 
-**Container Manager > Project > Create**:
+The container joins a shared Docker network called `cloudflared`, which the
+NAS's tunnel connector (`cloudflared-ds920`) is also on. Create it once over SSH:
+
+```sh
+sudo docker network create cloudflared
+```
+
+Then **Container Manager > Project > Create**:
 
 - **Project name**: `vocab-flashcards`
 - **Path**: `/volume1/docker/vocab-flashcards`
 - **Source**: use the existing `docker-compose.yml`
 - Click **Next > Done**. It downloads `node:20-alpine` and starts.
 
-Check it: open `http://<NAS-IP>:8787/healthz` on your network. You should see
-`{"ok":true}`. In the container's logs you should see
-`Vocab flashcards on port 8787, learned after 2 in a row`.
+Check it: the container's logs should show
+`Vocab flashcards on port 8787, learned after 2 in a row`, and its status
+should turn **healthy** after a minute. No port is opened on the NAS; only
+containers on the `cloudflared` network can reach it.
 
-## 5. Add the public hostname to your tunnel
+## 5. Add the route to the DS920+ tunnel
 
-**Zero Trust > Networks > Tunnels**, open your tunnel, then
-**Public Hostname > Add a public hostname**:
+**Zero Trust > Networks > Tunnels > DS920+ > Routes > Add**:
 
 - **Subdomain**: `vocab`  **Domain**: `actnaturally.online`
-- **Service**: `HTTP`, URL:
-  - `<NAS-IP>:8787` if `cloudflared` runs on the NAS host network or another machine
-  - `vocab-flashcards:8787` if `cloudflared` is a container on the same Docker
-    network as this one (then you can also remove the `ports:` section from
-    `docker-compose.yml`)
+- **Service URL**: `http://vocab-flashcards:8787`
 
 ## 6. Test it
 

@@ -16,10 +16,16 @@ services:
       # The whole folder, so updating index.html (e.g. git pull) takes effect without a restart
       - ./:/app:ro
       - ./data:/data
-    ports:
-      - "8787:8787"
+    # Reached by the tunnel connector over the shared "cloudflared" network as
+    # http://vocab-flashcards:8787, so no port is opened on the NAS.
+    networks:
+      - cloudflared
     healthcheck:
       test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8787/healthz"]
       interval: 60s
       timeout: 5s
       retries: 3
+
+networks:
+  cloudflared:
+    external: true   # create once on the NAS: sudo docker network create cloudflared
