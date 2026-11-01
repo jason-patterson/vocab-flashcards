@@ -1,0 +1,25 @@
+# Vocab flashcards for Synology Container Manager (Project) or `docker compose up -d`.
+# Uses the stock Node image and runs server.js straight from this folder, so
+# there is nothing to build. Settings go in .env (copy .env.example).
+services:
+  vocab:
+    image: node:20-alpine
+    container_name: vocab-flashcards
+    restart: unless-stopped
+    working_dir: /app
+    command: ["node", "server.js"]
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+      PORT: "8787"
+    volumes:
+      # The whole folder, so updating index.html (e.g. git pull) takes effect without a restart
+      - ./:/app:ro
+      - ./data:/data
+    ports:
+      - "8787:8787"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8787/healthz"]
+      interval: 60s
+      timeout: 5s
+      retries: 3

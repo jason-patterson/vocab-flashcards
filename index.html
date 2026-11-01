@@ -24,6 +24,8 @@
     --rule: #b9d3e6;
     --margin: #d9534f;
     --accent: #8fc3ea;
+    --got: #3f7a35;
+    --miss: #b5462f;
     --display: "Young Serif", Georgia, "Times New Roman", serif;
     --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
@@ -87,6 +89,30 @@
   }
   .picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+  .controls {
+    width: min(100%, 440px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: -8px;
+    font-size: 0.9rem;
+  }
+  .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+  .link-btn {
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--desk-muted);
+    background: none;
+    border: 1px solid var(--desk-raised);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+  .link-btn.armed { color: var(--desk-ink); border-color: var(--miss); background: var(--miss); }
+  .link-btn:focus-visible, .toggle input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
   .scene {
     width: min(100%, 440px);
     aspect-ratio: 5 / 3.4;
@@ -94,13 +120,13 @@
     perspective: 1400px;
   }
   @media (max-width: 520px) and (orientation: portrait) {
-    .scene { aspect-ratio: 3 / 4; max-height: 62vh; }
+    .scene { aspect-ratio: 3 / 4; max-height: 56vh; }
   }
   /* Older iOS (before 15) has no aspect-ratio; give the card a fixed height */
   @supports not (aspect-ratio: 1) {
     .scene { height: 300px; }
     @media (max-width: 520px) and (orientation: portrait) {
-      .scene { height: 60vh; }
+      .scene { height: 54vh; }
     }
   }
 
@@ -166,7 +192,7 @@
   .back {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
-    padding: 18px 22px 22px;
+    padding: 18px 22px 16px;
     background-image:
       linear-gradient(var(--margin), var(--margin)),
       repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px);
@@ -215,6 +241,27 @@
     font-size: clamp(1rem, 4.4vw, 1.15rem);
     line-height: 32px;
   }
+  .back-body { -webkit-box-flex: 1; flex: 1; min-height: 0; overflow: hidden; }
+
+  /* Did you know it? Answering moves on to the next word. */
+  .answers { display: flex; gap: 12px; padding-top: 10px; }
+  .answer {
+    -webkit-box-flex: 1;
+    flex: 1;
+    font: inherit;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 8px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .answer.miss { background: var(--miss); }
+  .answer.got { background: var(--got); }
+  .answer:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .answer:active { opacity: 0.8; }
 
   .status {
     font-size: 0.85rem;
@@ -222,6 +269,7 @@
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
   }
+  .account { font-size: 0.75rem; color: var(--desk-muted); margin-top: -12px; text-align: center; }
 
   @media (prefers-reduced-motion: reduce) {
     .card { -webkit-transition: none; transition: none; }
@@ -235,24 +283,35 @@
   <label for="set">Words</label>
   <select id="set"></select>
 </div>
+<div class="controls">
+  <label class="toggle" for="hide"><input type="checkbox" id="hide" checked> Hide learned words</label>
+  <button class="link-btn" id="reset" type="button">Reset day</button>
+</div>
 <div class="scene">
   <div class="card" id="card" role="button" tabindex="0" aria-live="polite" aria-label="Flashcard">
     <div class="face front">
       <div class="word" id="front-word">Loading…</div>
-      <div class="hint">Tap to see definition</div>
+      <div class="hint" id="hint">Tap to see definition</div>
     </div>
     <div class="face back">
-      <div class="back-head">
-        <span class="back-word" id="back-word"></span>
-        <span class="pos" id="pos"></span>
+      <div class="back-body">
+        <div class="back-head">
+          <span class="back-word" id="back-word"></span>
+          <span class="pos" id="pos"></span>
+        </div>
+        <p class="def" id="def"></p>
+        <p class="example" id="example"></p>
       </div>
-      <p class="def" id="def"></p>
-      <p class="example" id="example"></p>
+      <div class="answers">
+        <button class="answer miss" id="miss" type="button">&#x2717; Missed</button>
+        <button class="answer got" id="got" type="button">&#x2713; Got it</button>
+      </div>
     </div>
   </div>
 </div>
 <!-- Replaced by the script. If it stays, scripts aren't running (e.g. an iOS file preview). -->
 <div class="status" id="status">No words? This preview can't run the flashcards. Open the page in Safari or Chrome.</div>
+<div class="account" id="account"></div>
 
 <!-- Show script errors on the page, since phones have no console -->
 <script>
@@ -1185,24 +1244,131 @@ var WORD_SETS = [{"name":"Day 1","words":[["Curtail","To reduce or cut short","R
 </script>
 <script>
   // Plain ES5 so it runs on older iPhones and iPads.
+  //
+  // Progress: on the vocab server (behind Cloudflare Access) answers are saved
+  // to the signed-in user's account. Anywhere else (GitHub Pages, a preview)
+  // there is no server, so progress is kept on this device only.
   function $(id) { return document.getElementById(id); }
   var card = $("card");
   var picker = $("set");
+  var hideBox = $("hide");
+  var resetBtn = $("reset");
 
   var ALL = [];
   for (var s = 0; s < WORD_SETS.length; s++) ALL = ALL.concat(WORD_SETS[s].words);
 
-  // Selector: "all" or the index of a day set. The chosen set repeats, reshuffled each pass.
-  picker.options.add(new Option("All days (" + ALL.length + " words)", "all"));
-  for (var d = 0; d < WORD_SETS.length; d++) {
-    picker.options.add(new Option(WORD_SETS[d].name + " (" + WORD_SETS[d].words.length + ")", String(d)));
+  function readStore(key, fallback) {
+    try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; }
+  }
+  function writeStore(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
   }
 
+  // ---------- Progress ----------
+
+  var mode = "loading";      // "server" | "local"
+  var email = "";
+  var streakNeeded = 2;      // correct answers in a row to count as learned
+  var progress = {};         // word -> { streak, correct, wrong, learned }
+  var queue = readStore("vocab-queue", []);   // answers not yet sent to the server
+  var sending = false;
+  var syncError = "";
+
+  // Same rule as server.js: enough correct in a row = learned; a miss resets it.
+  function applyAnswer(rec, correct) {
+    rec = rec || { streak: 0, correct: 0, wrong: 0, learned: false };
+    if (correct) {
+      rec.correct++;
+      rec.streak++;
+      if (rec.streak >= streakNeeded) rec.learned = true;
+    } else {
+      rec.wrong++;
+      rec.streak = 0;
+      rec.learned = false;
+    }
+    return rec;
+  }
+  function isLearned(w) { var r = progress[w[0]]; return !!(r && r.learned); }
+  function countLearned(list) {
+    var n = 0;
+    for (var i = 0; i < list.length; i++) if (isLearned(list[i])) n++;
+    return n;
+  }
+
+  function request(method, url, body, done) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.timeout = 10000;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+      var data = null;
+      try { data = JSON.parse(xhr.responseText); } catch (e) {}
+      done(xhr.status, data);
+    };
+    xhr.onerror = xhr.ontimeout = function () { done(0, null); };
+    xhr.send(body ? JSON.stringify(body) : null);
+  }
+
+  function flush() {
+    if (mode !== "server" || sending || !queue.length) return;
+    sending = true;
+    var batch = queue.slice();
+    request("POST", "api/answers", { answers: batch }, function (status, data) {
+      sending = false;
+      if (status === 200) {
+        queue.splice(0, batch.length);
+        writeStore("vocab-queue", queue);
+        syncError = "";
+        if (queue.length) flush();
+      } else {
+        syncError = status === 401 || status === 403 ? "reload the page to sign in again" : "will retry";
+      }
+      showAccount();
+    });
+  }
+  setInterval(flush, 30000);
+  window.addEventListener("online", flush);
+
+  function showAccount() {
+    var text;
+    if (mode === "server") {
+      text = "Signed in as " + email;
+      if (queue.length) text += " · " + queue.length + " answer" + (queue.length === 1 ? "" : "s") + " not saved yet" + (syncError ? " (" + syncError + ")" : "");
+    } else {
+      text = "Progress is saved on this device only";
+    }
+    $("account").textContent = text;
+  }
+
+  // ---------- Day picker ----------
+
+  function labelFor(name, list) {
+    var n = countLearned(list);
+    return name + (n === list.length ? " ✓" : " (" + n + "/" + list.length + ")");
+  }
+  function buildPicker() {
+    picker.options.add(new Option(labelFor("All days", ALL), "all"));
+    for (var d = 0; d < WORD_SETS.length; d++) {
+      picker.options.add(new Option(labelFor(WORD_SETS[d].name, WORD_SETS[d].words), String(d)));
+    }
+  }
+  function updatePicker() {
+    picker.options[0].text = labelFor("All days", ALL);
+    for (var d = 0; d < WORD_SETS.length; d++) {
+      picker.options[d + 1].text = labelFor(WORD_SETS[d].name, WORD_SETS[d].words);
+    }
+  }
+
+  // ---------- Deck ----------
+
+  var setValue = "all";
   var words = ALL;
+  var hideLearned = readStore("vocab-hide", true);
   var deck = [];
   var current = null;
   var shown = 0;
   var pass = 0;
+  var passSize = 0;
   var flipped = false;
   var busy = false;
 
@@ -1214,27 +1380,39 @@ var WORD_SETS = [{"name":"Day 1","words":[["Curtail","To reduce or cut short","R
     return a;
   }
 
-  // Draw without repeats until every word in the set has been seen, then start
-  // a new pass. Avoid showing the same word twice in a row across passes.
+  // Each pass goes through the set once in random order, skipping learned
+  // words when they're hidden. Avoid the same word twice in a row across passes.
   function nextWord() {
     if (deck.length === 0) {
-      deck = shuffle(words.slice());
+      var pool = [];
+      for (var i = 0; i < words.length; i++) if (!hideLearned || !isLearned(words[i])) pool.push(words[i]);
+      if (!pool.length) return null;
+      deck = shuffle(pool);
       var last = deck.length - 1;
       if (current && last > 0 && deck[last] === current) {
         deck[last] = deck[0]; deck[0] = current;
       }
       shown = 0;
       pass++;
+      passSize = deck.length;
     }
     shown++;
     return deck.pop();
   }
 
+  function showStatus() {
+    var learned = countLearned(words);
+    $("status").textContent = current
+      ? "Pass " + pass + " · " + shown + " of " + passSize + " · " + learned + "/" + words.length + " learned"
+      : "All " + words.length + " learned";
+  }
   function setFront(w) {
-    $("front-word").textContent = w[0];
-    $("status").textContent = "Pass " + pass + " \u00b7 " + shown + " of " + words.length;
+    $("front-word").textContent = w ? w[0] : "All learned!";
+    $("hint").textContent = w ? "Tap to see definition" : "Turn off “Hide learned words” to review them";
+    showStatus();
   }
   function setBack(w) {
+    if (!w) return;
     $("back-word").textContent = w[0];
     $("def").textContent = w[1];
     $("example").textContent = w[2] ? "“" + w[2] + "”" : "";
@@ -1243,7 +1421,9 @@ var WORD_SETS = [{"name":"Day 1","words":[["Curtail","To reduce or cut short","R
   }
 
   function startSet(value) {
+    setValue = value;
     words = value === "all" || !WORD_SETS[value] ? ALL : WORD_SETS[value].words;
+    resetBtn.textContent = value === "all" ? "Reset all" : "Reset day";
     deck = [];
     current = null;
     pass = 0;
@@ -1255,40 +1435,123 @@ var WORD_SETS = [{"name":"Day 1","words":[["Curtail","To reduce or cut short","R
     setBack(current);
   }
 
-  card.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
-  });
-
-  card.addEventListener("click", function () {
-    if (busy) return;
-    if (!flipped) {
-      flipped = true;
-      card.className = "card flipped";
-      return;
-    }
-    // Flip back to the front with a new word. The front face is hidden while
-    // flipped, so it can change now; the back keeps its text until it turns away.
+  // Flip back to the front, optionally with a new word. The front face is hidden
+  // while flipped, so it can change now; the back keeps its text until it turns away.
+  function flipToFront(next) {
+    flipped = false;
+    card.className = "card";
+    if (!next) return;
     var w = nextWord();
     current = w;
     setFront(w);
-    flipped = false;
     busy = true;
-    card.className = "card";
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     setTimeout(function () { setBack(w); busy = false; }, reduce ? 0 : 600);
+  }
+
+  function answer(correct) {
+    if (busy || !flipped || !current) return;
+    var word = current[0];
+    progress[word] = applyAnswer(progress[word], correct);
+    if (mode === "server") {
+      queue.push({ word: word, correct: correct });
+      writeStore("vocab-queue", queue);
+      flush();
+    } else {
+      writeStore("vocab-progress", progress);
+    }
+    updatePicker();
+    showAccount();
+    flipToFront(true);
+  }
+
+  // ---------- Events ----------
+
+  card.addEventListener("click", function () {
+    if (busy || !current) return;
+    if (!flipped) {
+      flipped = true;
+      card.className = "card flipped";
+    } else {
+      flipToFront(false);   // peek back at the word without answering
+    }
+  });
+  $("got").addEventListener("click", function (e) { e.stopPropagation(); answer(true); });
+  $("miss").addEventListener("click", function (e) { e.stopPropagation(); answer(false); });
+
+  card.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
+    else if (e.key === "ArrowRight") answer(true);
+    else if (e.key === "ArrowLeft") answer(false);
   });
 
   picker.addEventListener("change", function () {
-    try { localStorage.setItem("vocab-set", picker.value); } catch (e) {}
+    writeStore("vocab-set", picker.value);
     startSet(picker.value);
     picker.blur();
   });
 
-  var saved = "all";
-  try { saved = localStorage.getItem("vocab-set") || "all"; } catch (e) {}
-  if (saved !== "all" && !WORD_SETS[saved]) saved = "all";
-  picker.value = saved;
-  startSet(saved);
+  hideBox.addEventListener("change", function () {
+    hideLearned = hideBox.checked;
+    writeStore("vocab-hide", hideLearned);
+    startSet(setValue);
+  });
+
+  // Reset asks for a second tap instead of a dialog.
+  var resetTimer = null;
+  resetBtn.addEventListener("click", function () {
+    if (!resetBtn.className.match(/armed/)) {
+      resetBtn.className = "link-btn armed";
+      resetBtn.textContent = "Tap again to reset";
+      resetTimer = setTimeout(function () {
+        resetBtn.className = "link-btn";
+        resetBtn.textContent = setValue === "all" ? "Reset all" : "Reset day";
+      }, 3000);
+      return;
+    }
+    clearTimeout(resetTimer);
+    resetBtn.className = "link-btn";
+    var list = [];
+    for (var i = 0; i < words.length; i++) { list.push(words[i][0]); delete progress[words[i][0]]; }
+    if (mode === "server") {
+      request("POST", "api/reset", setValue === "all" ? {} : { words: list }, function () {});
+    } else {
+      writeStore("vocab-progress", progress);
+    }
+    updatePicker();
+    startSet(setValue);
+  });
+
+  // ---------- Start ----------
+
+  function start() {
+    hideBox.checked = hideLearned;
+    buildPicker();
+    var saved = readStore("vocab-set", "all");
+    if (saved !== "all" && !WORD_SETS[saved]) saved = "all";
+    picker.value = saved;
+    startSet(saved);
+    showAccount();
+    flush();
+  }
+
+  request("GET", "api/progress", null, function (status, data) {
+    if (status === 200 && data && data.words) {
+      mode = "server";
+      email = data.email || "";
+      streakNeeded = data.streak || 2;
+      progress = data.words;
+      // Answers made earlier that never reached the server still count.
+      for (var i = 0; i < queue.length; i++) progress[queue[i].word] = applyAnswer(progress[queue[i].word], queue[i].correct);
+    } else if (status === 401 || status === 403) {
+      mode = "server";
+      syncError = "reload the page to sign in again";
+    } else {
+      mode = "local";
+      progress = readStore("vocab-progress", {});
+    }
+    start();
+  });
 </script>
 <!-- /page -->
 </body>
