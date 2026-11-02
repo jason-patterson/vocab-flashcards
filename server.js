@@ -23,6 +23,7 @@ const PORT = Number(process.env.PORT) || 8787;
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "progress.json");
 const INDEX_FILE = path.join(__dirname, "index.html");
+const ICON_FILE = path.join(__dirname, "apple-touch-icon.png");
 const TEAM = (process.env.CF_TEAM_DOMAIN || "").replace(/^https?:\/\//, "").replace(/\/+$/, "");
 const AUD = process.env.CF_ACCESS_AUD || "";
 const DEV_USER = process.env.DEV_USER_EMAIL || "";
@@ -159,6 +160,12 @@ async function handle(req, res) {
 
   if (req.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")) {
     return send(res, 200, fs.readFileSync(INDEX_FILE, "utf8"), "text/html; charset=utf-8");
+  }
+
+  // Home-screen icon. iOS also asks for these root paths when a page has no link tag.
+  if (req.method === "GET" && ["/apple-touch-icon.png", "/apple-touch-icon-precomposed.png", "/favicon.ico"].includes(url.pathname)) {
+    res.writeHead(200, { "Content-Type": "image/png", "Cache-Control": "public, max-age=86400" });
+    return res.end(fs.readFileSync(ICON_FILE));
   }
 
   if (!url.pathname.startsWith("/api/")) return send(res, 404, { error: "not found" });
